@@ -1,0 +1,17 @@
+* 1;Project3_ckt.ckt
+* Project: D:/EEFSS/Experiment2/Project3.aedt
+* Design: Project3_ckt
+
+*BeginParamDef
+*EndParamDef
+
+
+*begin toplevel circuit
+V3 net_1 0 SIN (0 50 50 0 0 0 0) 
+LWinding1 net_2 net_3 1 Winding
+R5 net_1 net_2 100
+VAmmeter6 net_3 0 DC 0 
+.PRINT TRAN PROBE VAmmeter6(t) I(VAmmeter6)
+
+*end toplevel circuit
+.end
