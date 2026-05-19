@@ -1,0 +1,23 @@
+* 1;Project1_ckt.ckt
+* Project: D:/EEFSS/Experiment3/Project1.aedt
+* Design: Project1_ckt
+
+*BeginParamDef
+*EndParamDef
+
+
+*begin toplevel circuit
+D7 0 net_5 D1 
+.MODEL D1 D (IS=1e-14 RS=0 N=1 EG=1.11 XTI=3 BV=1e+30 IBV=0.001 TNOM=27)
+S_8 net_3 net_5 IVoltmeter16 POS SW1 OFF
+C3 net_3 0 0.001 IC=100
+LWinding1 net_1 0 1 Winding
+.MODEL SW1 SW (Ron=0.001 Roff=1000000 Von=0 Voff=0)
+V10 net_7 0 PULSE (0 1 0 0.1 0.1 0.5 1) 
+R11 net_5 net_1 0.02
+R13 0 net_7 100
+IVoltmeter16 net_7 0 DC 0 
+.PRINT TRAN PROBE IVoltmeter16(t) V(IVoltmeter16)
+
+*end toplevel circuit
+.end
