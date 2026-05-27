@@ -1,0 +1,16 @@
+# Netlify 部署配置（放在 docs/ 下）
+# CMS 网页上传 —— 访问 /admin/ 用 GitHub 账号登录即可上传文件
+
+[build]
+  publish = "."
+  command = "echo 'No build step'"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    Cache-Control = "no-cache"

@@ -1,21 +1,14 @@
 backend:
-  name: github
-  repo: Iroul1212/XJTU_EE-study-material
+  name: git-gateway
   branch: main
-  # Netlify 部署时使用 (推荐):
-  # backend:
-  #   name: git-gateway
-  #   branch: main
-  # ⚠️ 如果直接用 GitHub Pages 部署，需要配置 OAuth 服务器
-  # 最简单方案：将站点部署到 Netlify（免费），改用上面的 git-gateway 配置
   
 # 媒体文件存储位置
 media_folder: "docs/assets/uploads"
 public_folder: "/assets/uploads"
 
 # 站点 URL
-site_url: https://iroul1212.github.io/XJTU_EE-study-material
-display_url: https://iroul1212.github.io/XJTU_EE-study-material
+site_url: https://celadon-malasada-e61291.netlify.app
+display_url: https://celadon-malasada-e61291.netlify.app
 
 # 语言
 locale: "zh_Hans"
