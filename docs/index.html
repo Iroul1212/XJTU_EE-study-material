@@ -56,7 +56,8 @@
     }
 
     /* ===== 搜索栏移到顶部居中 ===== */
-    .sidebar .search {
+    body > .search,
+    .search {
       position: fixed !important;
       top: 12px !important;
       left: 50% !important;
@@ -68,7 +69,8 @@
       margin: 0 !important;
       border-bottom: none !important;
     }
-    .sidebar .search input {
+    body > .search input,
+    .search input {
       width: 100% !important;
       border-radius: 24px !important;
       padding: 10px 20px !important;
@@ -79,12 +81,14 @@
       transition: box-shadow 0.3s, border-color 0.3s;
       margin: 0 !important;
     }
-    .sidebar .search input:focus {
+    body > .search input:focus,
+    .search input:focus {
       outline: none !important;
       border-color: #42b983 !important;
       box-shadow: 0 4px 20px rgba(66,185,131,0.2) !important;
     }
-    .sidebar .search .results-panel {
+    body > .search .results-panel,
+    .search .results-panel {
       position: fixed !important;
       top: 56px !important;
       left: 50% !important;
@@ -372,6 +376,23 @@
         function (hook, vm) {
           hook.doneEach(function () {
             buildTOC();
+          });
+          // 搜索栏移到 body 顶部居中（JS 兜底）
+          hook.mounted(function () {
+            var el = document.querySelector('.search');
+            if (el) {
+              el.style.position = 'fixed';
+              el.style.top = '12px';
+              el.style.left = '50%';
+              el.style.transform = 'translateX(-50%)';
+              el.style.zIndex = '90';
+              el.style.width = '400px';
+              el.style.maxWidth = '55vw';
+              el.style.padding = '0';
+              el.style.margin = '0';
+              el.style.borderBottom = 'none';
+              document.body.appendChild(el);
+            }
           });
         }
       ]
