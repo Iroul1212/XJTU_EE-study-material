@@ -2,23 +2,164 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>XJTU EE 学习资料站</title>
+  <title>XJTU 电气·电子·微电子 学习资料站</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/vue.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/themes/vue.css">
+  <style>
+    /* ===== 右侧目录侧边栏样式 ===== */
+    .toc-sidebar {
+      position: fixed;
+      right: 0;
+      top: 0;
+      width: 240px;
+      height: 100vh;
+      overflow-y: auto;
+      background: #f8f8f8;
+      border-left: 1px solid #e0e0e0;
+      padding: 80px 16px 20px 20px;
+      z-index: 10;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+    .toc-sidebar .toc-title {
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 12px;
+      color: #333;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #ddd;
+    }
+    .toc-sidebar a {
+      display: block;
+      color: #555;
+      text-decoration: none;
+      padding: 2px 0;
+      border-left: 2px solid transparent;
+      padding-left: 8px;
+      transition: all 0.15s;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .toc-sidebar a:hover,
+    .toc-sidebar a.active {
+      color: #42b983;
+      border-left-color: #42b983;
+    }
+    .toc-sidebar a.toc-h2 { padding-left: 8px; }
+    .toc-sidebar a.toc-h3 { padding-left: 20px; font-size: 12px; }
+    .toc-sidebar a.toc-h4 { padding-left: 32px; font-size: 11px; }
+
+    /* 给正文区域留出右侧空间 */
+    .markdown-section {
+      max-width: calc(100% - 260px) !important;
+    }
+
+    /* 移动端隐藏右侧目录 */
+    @media (max-width: 768px) {
+      .toc-sidebar { display: none; }
+      .markdown-section { max-width: 100% !important; }
+    }
+
+    /* ===== 左上角 Logo 样式 ===== */
+    .app-name-link {
+      display: flex !important;
+      align-items: center;
+      gap: 8px;
+    }
+    .app-name-link img {
+      max-height: 40px;
+      width: auto;
+    }
+  </style>
 </head>
 <body>
   <div id="app"></div>
+  <!-- 右侧目录侧边栏 -->
+  <nav class="toc-sidebar" id="tocSidebar">
+    <div class="toc-title">📑 本节目录</div>
+    <div id="tocContent"></div>
+  </nav>
   <script>
     window.$docsify = {
-      name: 'XJTU 电气学习资料',
-      repo: 'https://github.com/Iroul1212/XJTU_EE-study-material', // 改成你的仓库地址
-      loadSidebar: true,       // 自动读取 _sidebar.md 作为侧边栏导航
-      subMaxLevel: 3,          // 侧边栏目录展开层级
-      auto2top: true,          // 切换页面时自动回到顶部
-      search: 'auto',          // 开启搜索功能
+      name: 'XJTU 电气·电子·微电子',
+      logo: '/logo.png',
+      repo: 'https://github.com/Iroul1212/XJTU_EE-study-material',
+      loadSidebar: true,
+      subMaxLevel: 3,
+      auto2top: true,
+      // 搜索配置
+      search: {
+        maxAge: 86400000,
+        paths: 'auto',
+        placeholder: '🔍 搜索课程、资料...',
+        noData: '没有找到相关结果',
+        depth: 4,
+        hideOtherSidebarContent: false,
+      },
+      // 页面切换后自动重建 TOC
+      plugins: [
+        function (hook, vm) {
+          hook.doneEach(function () {
+            buildTOC();
+          });
+        }
+      ]
     }
+
+    // 从当前页面标题构建右侧目录
+    function buildTOC() {
+      var tocContent = document.getElementById('tocContent');
+      if (!tocContent) return;
+
+      // 获取正文区域所有标题
+      var markdownBody = document.querySelector('.markdown-section');
+      if (!markdownBody) { tocContent.innerHTML = ''; return; }
+
+      var headings = markdownBody.querySelectorAll('h1, h2, h3, h4');
+      var html = '';
+      headings.forEach(function (h) {
+        if (!h.id) return;
+        var level = h.tagName.toLowerCase();
+        html += '<a href="#' + h.id + '" class="toc-' + level + '">' + h.textContent + '</a>';
+      });
+
+      if (!html) {
+        tocContent.innerHTML = '<span style="color:#999;">暂无目录</span>';
+      } else {
+        tocContent.innerHTML = html;
+      }
+
+      // 高亮当前可见标题
+      highlightCurrentHeading();
+    }
+
+    // 滚动高亮当前章节
+    function highlightCurrentHeading() {
+      var links = document.querySelectorAll('#tocContent a');
+      var headings = document.querySelectorAll('.markdown-section h1[id], .markdown-section h2[id], .markdown-section h3[id], .markdown-section h4[id]');
+
+      var currentId = '';
+      headings.forEach(function (h) {
+        var rect = h.getBoundingClientRect();
+        if (rect.top <= 120) {
+          currentId = h.id;
+        }
+      });
+
+      links.forEach(function (a) {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + currentId);
+      });
+    }
+
+    // 监听滚动来高亮目录
+    window.addEventListener('scroll', function () {
+      highlightCurrentHeading();
+    }, { passive: true });
   </script>
-  <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+  <!-- Docsify v4 核心 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
+  <!-- 搜索插件 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
 </body>
 </html>
