@@ -35,21 +35,138 @@
     body > .search input:focus,
     .search input:focus {
       outline: none !important;
-      border-color: #42b983 !important;
-      box-shadow: 0 4px 20px rgba(66,185,131,0.2) !important;
+      border-color: #4a8cd9 !important;
+      box-shadow: 0 4px 20px rgba(74,140,217,0.2) !important;
     }
+    /* 隐藏 docsify 默认搜索结果面板，使用自定义面板 */
     body > .search .results-panel,
     .search .results-panel {
-      position: fixed !important;
-      top: 56px !important;
-      left: 50% !important;
-      transform: translateX(-50%) !important;
-      width: 400px !important;
-      max-width: 55vw !important;
+      display: none !important;
     }
+
+    /* ===== 自定义搜索下拉面板 ===== */
+    .custom-search-results {
+      display: none;
+      position: fixed;
+      top: 56px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 440px;
+      max-width: 60vw;
+      max-height: 420px;
+      overflow-y: auto;
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+      z-index: 95;
+    }
+    .custom-search-results.show {
+      display: block;
+    }
+    .custom-search-result-item {
+      display: flex;
+      align-items: center;
+      padding: 10px 18px;
+      cursor: pointer;
+      border-bottom: 1px solid #f2f2f2;
+      transition: background 0.15s;
+      gap: 10px;
+      text-decoration: none;
+      color: inherit;
+    }
+    .custom-search-result-item:last-child {
+      border-bottom: none;
+    }
+    .custom-search-result-item:hover,
+    .custom-search-result-item.active {
+      background: #e6f0fa;
+    }
+    .custom-search-result-item .result-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+      width: 24px;
+      text-align: center;
+    }
+    .custom-search-result-item .result-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .custom-search-result-item .result-name {
+      font-weight: 600;
+      font-size: 14px;
+      color: #333;
+    }
+    .custom-search-result-item .result-category {
+      font-size: 11px;
+      color: #999;
+      margin-top: 1px;
+    }
+    .custom-search-no-result {
+      padding: 24px 18px;
+      text-align: center;
+      color: #999;
+      font-size: 14px;
+    }
+    .custom-search-empty-hint {
+      padding: 16px 18px;
+      text-align: center;
+      color: #bbb;
+      font-size: 13px;
+    }
+    /* 暗黑模式 */
+    html.dark .custom-search-results {
+      background: #2a2a3c;
+      border-color: #45475a;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    }
+    html.dark .custom-search-result-item {
+      border-bottom-color: #3a3a4c;
+    }
+    html.dark .custom-search-result-item:hover,
+    html.dark .custom-search-result-item.active {
+      background: #3a3a50;
+    }
+    html.dark .custom-search-result-item .result-name {
+      color: #cdd6f4;
+    }
+    html.dark .custom-search-result-item .result-category {
+      color: #6c7086;
+    }
+    html.dark .custom-search-no-result {
+      color: #6c7086;
+    }
+    html.dark .custom-search-empty-hint {
+      color: #585b70;
+    }
+
     /* 侧边栏搜索栏顶部留空 */
     .sidebar-nav {
       margin-top: 52px;
+    }
+
+    /* ===== 侧边栏可折叠子级 ===== */
+    .sidebar-nav ul ul { overflow: hidden; transition: max-height 0.3s ease; }
+    .sidebar-nav ul ul.collapsed { max-height: 0 !important; }
+    /* 可折叠项通用样式 */
+    .sidebar-collapse {
+      cursor: pointer !important;
+      user-select: none;
+    }
+    .sidebar-collapse::before {
+      content: '▼';
+      font-size: 10px;
+      margin-right: 4px;
+      display: inline-block;
+      transition: transform 0.2s;
+      vertical-align: middle;
+      color: #999;
+    }
+    .sidebar-collapse.collapsed::before {
+      transform: rotate(-90deg);
+    }
+    html.dark .sidebar-collapse::before {
+      color: #6c7086;
     }
 
     /* 移动端 */
@@ -75,9 +192,29 @@
       filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));
     }
 
-    /* 隐藏侧边栏内的 logo */
+    /* 隐藏侧边栏内的 logo，并美化标题文字 */
     .app-name-link img {
       display: none;
+    }
+    .app-name-link {
+      font-size: 30px !important;
+      font-weight: 800 !important;
+      letter-spacing: 2px !important;
+      color: #2b6cb0 !important;
+      background: none !important;
+      -webkit-background-clip: unset !important;
+      -webkit-text-fill-color: #2b6cb0 !important;
+      background-clip: unset !important;
+    }
+    html.dark .app-name-link {
+      color: #5b9bd5 !important;
+      background: none !important;
+      -webkit-background-clip: unset !important;
+      -webkit-text-fill-color: #5b9bd5 !important;
+      background-clip: unset !important;
+    }
+    .app-name {
+      margin: 12px 0 4px 0 !important;
     }
 
     /* ===== 暗黑模式切换按钮 ===== */
@@ -117,7 +254,7 @@
       --border: #45475a;
       --link: #89b4fa;
       --link-hover: #b4d0fb;
-      --accent: #42b983;
+      --accent: #4a8cd9;
       --code-bg: #313244;
       --table-stripe: #252536;
     }
@@ -133,14 +270,15 @@
       color: #cdd6f4 !important;
     }
     html.dark .sidebar-nav li.active > a {
-      color: #42b983 !important;
-      border-right-color: #42b983 !important;
+      color: #4a8cd9 !important;
+      border-right-color: #4a8cd9 !important;
     }
     html.dark .sidebar-nav li > a:hover {
       color: #89b4fa !important;
     }
-    html.dark .app-name-link {
-      color: #cdd6f4 !important;
+    html.dark .app-name-link,
+    html.dark .app-name {
+      color: #5b9bd5 !important;
     }
     html.dark .search input {
       background: #313244 !important;
@@ -148,22 +286,11 @@
       border-color: #45475a !important;
     }
     html.dark .search input:focus {
-      border-color: #42b983 !important;
-      box-shadow: 0 4px 20px rgba(66,185,131,0.2) !important;
+      border-color: #4a8cd9 !important;
+      box-shadow: 0 4px 20px rgba(74,140,217,0.2) !important;
     }
     html.dark .search input::placeholder {
       color: #6c7086 !important;
-    }
-    html.dark .search .results-panel {
-      background: #2a2a3c !important;
-      color: #cdd6f4 !important;
-      border-color: #45475a !important;
-    }
-    html.dark .search .matching-post {
-      border-bottom-color: #45475a !important;
-    }
-    html.dark .search .matching-post .h2 {
-      color: #89b4fa !important;
     }
 
     /* --- 内容区域 --- */
@@ -232,7 +359,7 @@
     /* --- 引用块 --- */
     html.dark .markdown-section blockquote {
       background: #252536 !important;
-      border-left-color: #42b983 !important;
+      border-left-color: #4a8cd9 !important;
       color: #a6adc8 !important;
     }
 
@@ -274,12 +401,190 @@
     html.dark .pagination-item-title {
       color: #89b4fa !important;
     }
+
+    /* ===== 文件列表卡片样式 ===== */
+    .file-list { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+    .file-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      background: #fff;
+      border: 1px solid #e8e8e8;
+      border-radius: 10px;
+      transition: all 0.2s;
+      gap: 12px;
+    }
+    .file-card:hover {
+      border-color: #4a8cd9;
+      box-shadow: 0 2px 12px rgba(74,140,217,0.12);
+      transform: translateY(-1px);
+    }
+    .file-card .file-icon {
+      font-size: 28px;
+      flex-shrink: 0;
+      width: 36px;
+      text-align: center;
+    }
+    .file-card .file-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .file-card .file-name {
+      font-weight: 600;
+      font-size: 15px;
+      color: #333;
+      word-break: break-all;
+    }
+    .file-card .file-meta {
+      font-size: 12px;
+      color: #999;
+      margin-top: 2px;
+    }
+    .file-card .file-download {
+      flex-shrink: 0;
+      padding: 7px 18px;
+      background: #4a8cd9;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .file-card .file-download:hover {
+      background: #3a74b8;
+      text-decoration: none;
+      color: #fff;
+    }
+    .file-list-empty {
+      text-align: center;
+      padding: 60px 20px;
+      color: #999;
+    }
+    .file-list-empty .empty-icon { font-size: 48px; margin-bottom: 12px; }
+    .file-list-loading {
+      text-align: center;
+      padding: 60px 20px;
+      color: #999;
+    }
+    .file-list-error {
+      text-align: center;
+      padding: 40px 20px;
+      color: #e74c3c;
+    }
+
+    /* 暗黑模式文件列表 */
+    html.dark .file-card {
+      background: #252536;
+      border-color: #45475a;
+    }
+    html.dark .file-card:hover {
+      border-color: #4a8cd9;
+      box-shadow: 0 2px 12px rgba(74,140,217,0.15);
+    }
+    html.dark .file-card .file-name { color: #cdd6f4; }
+    html.dark .file-card .file-meta { color: #6c7086; }
+    html.dark .file-list-empty { color: #6c7086; }
+    html.dark .file-list-loading { color: #6c7086; }
+
+    /* ===== 文件夹卡片样式 ===== */
+    .folder-card {
+      text-decoration: none !important;
+      color: inherit !important;
+    }
+    .folder-card .file-name {
+      color: #1d4f7a !important;
+      font-weight: 600;
+    }
+    .folder-card:hover .file-name {
+      color: #4a8cd9 !important;
+    }
+    .file-enter {
+      font-size: 14px;
+      color: #ccc;
+      flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+    .folder-card:hover .file-enter {
+      transform: translateX(4px);
+      color: #4a8cd9;
+    }
+    html.dark .folder-card .file-name {
+      color: #7db8e8 !important;
+    }
+    html.dark .folder-card:hover .file-name {
+      color: #4a8cd9 !important;
+    }
+    html.dark .file-enter {
+      color: #585b70;
+    }
+    html.dark .folder-card:hover .file-enter {
+      color: #4a8cd9;
+    }
+
+    /* ===== 文件分区标签 ===== */
+    .file-section-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #999;
+      padding: 8px 0 4px 0;
+      margin-top: 4px;
+      letter-spacing: 1px;
+    }
+    html.dark .file-section-label {
+      color: #6c7086;
+    }
+
+    /* ===== 面包屑导航 ===== */
+    .file-breadcrumb {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 2px;
+      padding: 8px 0 16px 0;
+      font-size: 14px;
+    }
+    .file-breadcrumb a {
+      color: #4a8cd9;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .file-breadcrumb a:hover {
+      text-decoration: underline;
+      color: #1d4f7a;
+    }
+    .file-breadcrumb .breadcrumb-sep {
+      color: #ccc;
+      margin: 0 2px;
+    }
+    .file-breadcrumb .breadcrumb-current {
+      color: #666;
+      font-weight: 600;
+    }
+    html.dark .file-breadcrumb a {
+      color: #7db8e8;
+    }
+    html.dark .file-breadcrumb a:hover {
+      color: #4a8cd9;
+    }
+    html.dark .file-breadcrumb .breadcrumb-sep {
+      color: #585b70;
+    }
+    html.dark .file-breadcrumb .breadcrumb-current {
+      color: #a6adc8;
+    }
   </style>
 </head>
 <body>
   <!-- 左上角 Logo -->
   <a href="./" title="返回首页"><img class="site-logo" src="logo.png" alt="XJTU 学习资料站"></a>
   <div id="app"></div>
+  <!-- 自定义搜索下拉面板 -->
+  <div class="custom-search-results" id="customSearchResults"></div>
   <!-- 暗黑模式切换按钮 -->
   <button class="dark-mode-toggle" id="darkModeToggle" title="切换暗黑模式" aria-label="切换暗黑模式">🌙</button>
   <script>
@@ -289,18 +594,232 @@
       loadSidebar: true,
       subMaxLevel: 3,
       auto2top: true,
-      // 搜索配置
+      // 搜索配置（仅用于输入框样式，实际搜索由自定义逻辑接管）
       search: {
         maxAge: 86400000,
         paths: 'auto',
-        placeholder: '🔍 搜索课程、资料...',
+        placeholder: '🔍 搜索课程（如 高数、电路、模电...）',
         noData: '没有找到相关结果',
-        depth: 4,
+        depth: 0,
         hideOtherSidebarContent: false,
       },
       // 页面切换后自动重建 TOC
       plugins: [
         function (hook, vm) {
+          // ===== 课程搜索引擎：课程索引 =====
+          // 格式: { name: 课程名, alias: [别名], category: 分类路径, path: 链接路径, icon: 图标 }
+          var COURSE_INDEX = [
+            // 公共课程 - 思政类
+            { name: '思修', alias: ['思想道德修养', '思想道德'], category: '公共课程 / 思政类', path: '../思修/', icon: '📖' },
+            { name: '史纲', alias: ['近代史纲要', '近代史', '中国近现代史'], category: '公共课程 / 思政类', path: '../史纲/', icon: '📖' },
+            { name: '毛概', alias: ['毛泽东思想', '毛泽东'], category: '公共课程 / 思政类', path: '../毛概/', icon: '📖' },
+            { name: '马原', alias: ['马克思主义', '马克思', '马哲'], category: '公共课程 / 思政类', path: '../马原/', icon: '📖' },
+            { name: '习思想', alias: ['习近平', '新时代', '中特'], category: '公共课程 / 思政类', path: '../习思想/', icon: '📖' },
+            { name: '军理', alias: ['国防教育', '军事理论', '军事'], category: '公共课程 / 思政类', path: '../军理（国防教育）/', icon: '🎖️' },
+            // 公共课程 - 数学类
+            { name: '高数&CMC', alias: ['高等数学', '高数', 'CMC', '数学竞赛'], category: '公共课程 / 数学类', path: '../高数%26CMC/', icon: '📐' },
+            { name: '线代', alias: ['线性代数', '矩阵'], category: '公共课程 / 数学类', path: '../线代/', icon: '📐' },
+            { name: '概率论', alias: ['概率统计', '概率', '统计'], category: '公共课程 / 数学类', path: '../概率论/', icon: '📐' },
+            { name: '复变', alias: ['复变函数', '复数'], category: '公共课程 / 数学类', path: '../复变/', icon: '📐' },
+            { name: '数学物理方程', alias: ['数理方程', '偏微分方程', 'PDE'], category: '公共课程 / 数学类', path: '../数学物理方程/', icon: '📐' },
+            // 公共课程 - 物理与化学
+            { name: '大学物理', alias: ['大物', '物理', '力学', '电磁学'], category: '公共课程 / 物理与化学', path: '../大学物理/', icon: '🔬' },
+            { name: '大物实验', alias: ['物理实验', '大学物理实验'], category: '公共课程 / 物理与化学', path: '../大物实验/', icon: '🧪' },
+            { name: '大学化学', alias: ['大化', '化学'], category: '公共课程 / 物理与化学', path: '../大学化学/', icon: '⚗️' },
+            { name: '大化实验', alias: ['化学实验', '大学化学实验'], category: '公共课程 / 物理与化学', path: '../大化实验/', icon: '🧪' },
+            // 公共课程 - 其他
+            { name: '工程制图', alias: ['工图', '制图', 'CAD'], category: '公共课程 / 其他', path: '../工程制图/', icon: '✏️' },
+            { name: '大计基', alias: ['大学计算机基础', '计算机基础', '计基', '编程'], category: '公共课程 / 其他', path: '../大计基/', icon: '💻' },
+            // 电气专业 - 核心课
+            { name: '电路', alias: ['电路分析', '电路理论', '基尔霍夫'], category: '电气专业 / 专业核心课', path: '../电路/', icon: '⚡' },
+            { name: '电路实验', alias: ['电路实验课'], category: '电气专业 / 专业核心课', path: '../电路实验/', icon: '⚡' },
+            { name: '模拟电子技术', alias: ['模电', '模拟电路', '运放', '放大器'], category: '电气专业 / 专业核心课', path: '../模拟电子技术/', icon: '🔌' },
+            { name: '数电', alias: ['数字电子技术', '数字电路', '逻辑电路', 'FPGA'], category: '电气专业 / 专业核心课', path: '../数电/', icon: '🔌' },
+            { name: '电磁场', alias: ['电磁场理论', '电磁波', '麦克斯韦'], category: '电气专业 / 专业核心课', path: '../电磁场/', icon: '🧲' },
+            { name: '信号与系统', alias: ['信号', '系统', '傅里叶', '拉普拉斯', '卷积'], category: '电气专业 / 专业核心课', path: '../信号与系统/', icon: '📶' },
+            // 电气专业 - 实验
+            { name: '模电数电实验', alias: ['模电实验', '数电实验', '电子实验'], category: '电气专业 / 实验与实践', path: '../模电数电实验/', icon: '🧪' },
+            { name: '电磁场和信号与系统实验', alias: ['电磁实验', '信号实验'], category: '电气专业 / 实验与实践', path: '../电磁场和信号与系统实验/', icon: '🧪' }
+          ];
+
+          // 搜索匹配函数：支持拼音首字母、汉字、别名模糊匹配
+          function matchCourse(query, course) {
+            var q = query.toLowerCase().replace(/\s+/g, '');
+            if (!q) return false;
+            // 课程名精确/包含匹配
+            if (course.name.toLowerCase().indexOf(q) !== -1) return true;
+            // 别名匹配
+            for (var i = 0; i < course.alias.length; i++) {
+              if (course.alias[i].toLowerCase().indexOf(q) !== -1) return true;
+            }
+            // 模糊逐字匹配：查询词中每个字都在课程名或别名中出现
+            var allFields = course.name + ' ' + course.alias.join(' ');
+            var matched = true;
+            for (var j = 0; j < q.length; j++) {
+              if (allFields.indexOf(q.charAt(j)) === -1) { matched = false; break; }
+            }
+            return matched;
+          }
+
+          function initCustomSearch() {
+            var searchInput = document.querySelector('.search input');
+            var resultsPanel = document.getElementById('customSearchResults');
+            if (!searchInput || !resultsPanel) return;
+
+            var activeIndex = -1;
+            var currentResults = [];
+
+            function renderResults(results) {
+              if (results.length === 0) {
+                var query = searchInput.value.trim();
+                if (query) {
+                  resultsPanel.innerHTML = '<div class="custom-search-no-result">🔍 未找到匹配课程 "<b>' + query + '</b>"<br><span style="font-size:12px;">试试其他关键词，如 高数、模电、电路...</span></div>';
+                } else {
+                  // 空输入时显示热门课程
+                  var hotCourses = COURSE_INDEX.slice(0, 8);
+                  var html = '';
+                  for (var i = 0; i < hotCourses.length; i++) {
+                    var c = hotCourses[i];
+                    html += '<a class="custom-search-result-item" href="#/' + c.path + '">';
+                    html += '<span class="result-icon">' + c.icon + '</span>';
+                    html += '<div class="result-info"><div class="result-name">' + c.name + '</div>';
+                    html += '<div class="result-category">' + c.category + '</div></div>';
+                    html += '</a>';
+                  }
+                  html += '<div class="custom-search-empty-hint">💡 输入关键词搜索课程...</div>';
+                  resultsPanel.innerHTML = html;
+                }
+              } else {
+                var html = '';
+                for (var i = 0; i < results.length; i++) {
+                  var c = results[i];
+                  html += '<a class="custom-search-result-item' + (i === activeIndex ? ' active' : '') + '" href="#/' + c.path + '" data-index="' + i + '">';
+                  html += '<span class="result-icon">' + c.icon + '</span>';
+                  html += '<div class="result-info"><div class="result-name">' + c.name + '</div>';
+                  html += '<div class="result-category">' + c.category + '</div></div>';
+                  html += '</a>';
+                }
+                resultsPanel.innerHTML = html;
+              }
+              if (searchInput.value.trim() || currentResults.length > 0) {
+                resultsPanel.classList.add('show');
+              }
+            }
+
+            function doSearch() {
+              var query = searchInput.value.trim();
+              activeIndex = -1;
+              if (!query) {
+                currentResults = [];
+                renderResults([]);
+                return;
+              }
+              currentResults = [];
+              for (var i = 0; i < COURSE_INDEX.length; i++) {
+                if (matchCourse(query, COURSE_INDEX[i])) {
+                  currentResults.push(COURSE_INDEX[i]);
+                }
+              }
+              renderResults(currentResults);
+            }
+
+            // 监听输入
+            searchInput.addEventListener('input', doSearch);
+            searchInput.addEventListener('focus', function () {
+              if (!searchInput.value.trim()) {
+                currentResults = [];
+                renderResults([]);
+              }
+              resultsPanel.classList.add('show');
+            });
+
+            // 键盘导航
+            searchInput.addEventListener('keydown', function (e) {
+              var items = resultsPanel.querySelectorAll('.custom-search-result-item');
+              if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (activeIndex < items.length - 1) activeIndex++;
+                else activeIndex = 0;
+                renderResults(currentResults);
+              } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (activeIndex > 0) activeIndex--;
+                else activeIndex = items.length - 1;
+                renderResults(currentResults);
+              } else if (e.key === 'Enter') {
+                if (activeIndex >= 0 && items[activeIndex]) {
+                  e.preventDefault();
+                  items[activeIndex].click();
+                }
+              } else if (e.key === 'Escape') {
+                resultsPanel.classList.remove('show');
+                searchInput.blur();
+              }
+            });
+
+            // 点击外部关闭
+            document.addEventListener('click', function (e) {
+              if (!searchInput.contains(e.target) && !resultsPanel.contains(e.target)) {
+                resultsPanel.classList.remove('show');
+              }
+            });
+
+            // 点击结果项后关闭面板
+            resultsPanel.addEventListener('click', function (e) {
+              var item = e.target.closest('.custom-search-result-item');
+              if (item) {
+                setTimeout(function () { resultsPanel.classList.remove('show'); }, 200);
+              }
+            });
+          }
+
+          // 侧边栏折叠展开
+          function setupCollapsibleSidebar() {
+            var sidebarNav = document.querySelector('.sidebar-nav');
+            if (!sidebarNav) return;
+
+            function findChildUl(li) {
+              for (var i = 0; i < li.children.length; i++) {
+                if (li.children[i].tagName === 'UL') return li.children[i];
+              }
+              return null;
+            }
+
+            function bindCollapse(el) {
+              if (el.classList.contains('collapse-bound')) return;
+              var parentLi = el.parentElement;
+              if (!parentLi || parentLi.tagName !== 'LI') return;
+              // 查找子 UL：先找同级，再找内部嵌套
+              var childUl = findChildUl(parentLi) || el.querySelector('ul');
+              if (!childUl) return;
+
+              el.classList.add('collapse-bound', 'sidebar-collapse');
+              childUl.style.maxHeight = childUl.scrollHeight + 'px';
+
+              el.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var ul = findChildUl(parentLi) || el.querySelector('ul');
+                if (!ul) return;
+                var isCollapsed = ul.classList.contains('collapsed');
+                if (isCollapsed) {
+                  ul.classList.remove('collapsed');
+                  ul.style.maxHeight = ul.scrollHeight + 'px';
+                  el.classList.remove('collapsed');
+                } else {
+                  ul.style.maxHeight = ul.scrollHeight + 'px';
+                  ul.offsetHeight;
+                  ul.classList.add('collapsed');
+                  ul.style.maxHeight = '0px';
+                  el.classList.add('collapsed');
+                }
+              });
+            }
+
+            // 绑定所有 li > p 和 li > strong
+            sidebarNav.querySelectorAll('li > p').forEach(function (p) { bindCollapse(p); });
+            sidebarNav.querySelectorAll('li > strong').forEach(function (s) { bindCollapse(s); });
+          }
+
           // 搜索栏移到 body 顶部居中（JS 兜底）
           hook.mounted(function () {
             var el = document.querySelector('.search');
@@ -317,6 +836,188 @@
               el.style.borderBottom = 'none';
               document.body.appendChild(el);
             }
+            setupCollapsibleSidebar();
+
+            // ===== 自定义课程搜索引擎 =====
+            initCustomSearch();
+          });
+
+          hook.doneEach(function () {
+            // 延迟重试，确保 sidebar 完全渲染
+            setTimeout(setupCollapsibleSidebar, 200);
+            setTimeout(setupCollapsibleSidebar, 600);
+          });
+        },
+        // ===== GitHub 文件浏览插件（支持嵌套文件夹） =====
+        function (hook, vm) {
+          var API_BASE = 'https://api.github.com/repos/Iroul1212/XJTU_EE-study-material/contents/';
+          var RAW_BASE = 'https://raw.githubusercontent.com/Iroul1212/XJTU_EE-study-material/main/';
+          var CACHE_KEY = 'xjtu-file-cache';
+          var CACHE_TTL = 30 * 60 * 1000; // 30 分钟缓存
+
+          // 文件图标映射
+          function getFileIcon(name) {
+            var ext = name.split('.').pop().toLowerCase();
+            var map = {
+              pdf: '📄', doc: '📝', docx: '📝', ppt: '📊', pptx: '📊',
+              xls: '📈', xlsx: '📈', zip: '📦', rar: '📦', '7z': '📦',
+              jpg: '🖼️', jpeg: '🖼️', png: '🖼️', gif: '🖼️', svg: '🖼️',
+              md: '📋', txt: '📃', py: '🐍', c: '⚙️', cpp: '⚙️',
+              java: '☕', js: '📜', html: '🌐', css: '🎨'
+            };
+            return map[ext] || '📁';
+          }
+
+          function formatSize(bytes) {
+            if (!bytes) return '';
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / 1048576).toFixed(1) + ' MB';
+          }
+
+          function getCache() {
+            try {
+              var raw = sessionStorage.getItem(CACHE_KEY);
+              if (!raw) return {};
+              var cache = JSON.parse(raw);
+              var now = Date.now();
+              Object.keys(cache).forEach(function (k) {
+                if (now - cache[k]._ts > CACHE_TTL) delete cache[k];
+              });
+              return cache;
+            } catch (e) { return {}; }
+          }
+
+          function setCache(key, data) {
+            try {
+              var cache = getCache();
+              cache[key] = { data: data, _ts: Date.now() };
+              sessionStorage.setItem(CACHE_KEY, JSON.stringify(cache));
+            } catch (e) { /* storage full, ignore */ }
+          }
+
+          // 构建面包屑
+          function buildBreadcrumb(fullPath) {
+            var parts = fullPath.split('/').filter(Boolean);
+            if (parts.length <= 1) return '';
+            var html = '<div class="file-breadcrumb">';
+            html += '<a class="breadcrumb-back" href="#/../' + parts[0] + '/">📂 ' + parts[0] + '</a>';
+            for (var i = 1; i < parts.length; i++) {
+              var p = parts.slice(0, i + 1).join('/');
+              html += '<span class="breadcrumb-sep"> / </span>';
+              if (i === parts.length - 1) {
+                html += '<span class="breadcrumb-current">' + parts[i] + '</span>';
+              } else {
+                html += '<a href="#/../' + p + '/">' + parts[i] + '</a>';
+              }
+            }
+            html += '</div>';
+            return html;
+          }
+
+          // 构建文件/文件夹列表 HTML
+          function buildFileListHTML(items, fullPath) {
+            var courseRoot = fullPath.split('/')[0]; // 课程根目录名
+            var files = items.filter(function (f) { return f.type === 'file'; });
+            var folders = items.filter(function (f) { return f.type === 'dir'; });
+
+            if (items.length === 0) {
+              return '<div class="file-list-empty"><div class="empty-icon">📭</div><p>该目录暂无资料</p><p style="font-size:12px;margin-top:8px;">欢迎通过 GitHub PR 贡献资料 🎉</p></div>';
+            }
+
+            var html = '';
+
+            // 文件夹列表
+            if (folders.length > 0) {
+              html += '<div class="file-section-label">📁 文件夹</div>';
+              html += '<div class="file-list">';
+              folders.forEach(function (f) {
+                var subPath = fullPath + '/' + encodeURIComponent(f.name);
+                html += '<a class="file-card folder-card" href="#/../' + subPath + '/">';
+                html += '<span class="file-icon">📂</span>';
+                html += '<div class="file-info">';
+                html += '<div class="file-name">' + f.name + '</div>';
+                html += '<div class="file-meta">文件夹</div>';
+                html += '</div>';
+                html += '<span class="file-enter">→</span>';
+                html += '</a>';
+              });
+              html += '</div>';
+            }
+
+            // 文件列表
+            if (files.length > 0) {
+              if (folders.length > 0) html += '<div class="file-section-label">📄 文件</div>';
+              html += '<div class="file-list">';
+              files.forEach(function (f) {
+                var icon = getFileIcon(f.name);
+                var dlUrl = RAW_BASE + encodeURI(fullPath) + '/' + encodeURIComponent(f.name);
+                html += '<div class="file-card">';
+                html += '<span class="file-icon">' + icon + '</span>';
+                html += '<div class="file-info">';
+                html += '<div class="file-name">' + f.name + '</div>';
+                html += '<div class="file-meta">' + formatSize(f.size) + '</div>';
+                html += '</div>';
+                html += '<a class="file-download" href="' + dlUrl + '" target="_blank" rel="noopener">⬇ 下载</a>';
+                html += '</div>';
+              });
+              html += '</div>';
+            }
+
+            return html;
+          }
+
+          // ===== GitHub 文件浏览 =====
+          function handleFileBrowse() {
+            var hash = window.location.hash;
+            // 匹配: #/../课程名/ 或 #/../课程名/子目录/... 
+            var match = hash.match(/^#\/\.\.\/(.+?)\/?$/);
+            if (!match) return;
+
+            var fullPath = decodeURIComponent(match[1]);
+            // 去掉末尾 /
+            fullPath = fullPath.replace(/\/$/, '');
+
+            // 延迟执行，等 docsify 渲染完后再替换
+            setTimeout(function () {
+              var contentEl = document.querySelector('.markdown-section');
+              if (!contentEl) return;
+
+              contentEl.innerHTML = '<div class="file-list-loading"><p style="font-size:18px;">⏳</p><p>正在加载文件列表...</p></div>';
+
+              var cache = getCache();
+              if (cache[fullPath]) {
+                var title = '<h1>📂 ' + fullPath.split('/').pop() + '</h1>';
+                contentEl.innerHTML = title + buildBreadcrumb(fullPath) + buildFileListHTML(cache[fullPath].data, fullPath);
+                return;
+              }
+
+              var apiUrl = API_BASE + encodeURI(fullPath);
+              fetch(apiUrl)
+                .then(function (res) {
+                  if (!res.ok) throw new Error('HTTP ' + res.status);
+                  return res.json();
+                })
+                .then(function (data) {
+                  var items = Array.isArray(data) ? data : [];
+                  setCache(fullPath, items);
+                  var el = document.querySelector('.markdown-section');
+                  if (el) {
+                    var title = '<h1>📂 ' + fullPath.split('/').pop() + '</h1>';
+                    el.innerHTML = title + buildBreadcrumb(fullPath) + buildFileListHTML(items, fullPath);
+                  }
+                })
+                .catch(function (err) {
+                  var el = document.querySelector('.markdown-section');
+                  if (el) el.innerHTML = '<h1>📂 ' + fullPath.split('/').pop() + '</h1><div class="file-list-error"><p>⚠️ 加载失败：' + err.message + '</p><p style="font-size:12px;margin-top:8px;">请检查网络连接后刷新重试</p></div>';
+                });
+            }, 300);
+          }
+
+          // 监听 hash 变化 + 初始加载
+          window.addEventListener('hashchange', handleFileBrowse);
+          hook.doneEach(function () {
+            setTimeout(handleFileBrowse, 100);
           });
         }
       ]
