@@ -1,0 +1,70 @@
+backend:
+  name: github
+  repo: Iroul1212/XJTU_EE-study-material
+  branch: main
+  # Netlify 部署时使用 (推荐):
+  # backend:
+  #   name: git-gateway
+  #   branch: main
+  # ⚠️ 如果直接用 GitHub Pages 部署，需要配置 OAuth 服务器
+  # 最简单方案：将站点部署到 Netlify（免费），改用上面的 git-gateway 配置
+  
+# 媒体文件存储位置
+media_folder: "docs/assets/uploads"
+public_folder: "/assets/uploads"
+
+# 站点 URL
+site_url: https://iroul1212.github.io/XJTU_EE-study-material
+display_url: https://iroul1212.github.io/XJTU_EE-study-material
+
+# 语言
+locale: "zh_Hans"
+
+# Logo
+logo_url: https://iroul1212.github.io/XJTU_EE-study-material/logo.png
+
+# 编辑器配置
+publish_mode: editorial_workflow
+
+# ========== 内容集合定义 ==========
+collections:
+  # 首页 README
+  - name: "home"
+    label: "🏠 首页内容"
+    label_singular: "首页"
+    description: "编辑网站首页展示内容"
+    files:
+      - file: "docs/README.md"
+        label: "首页"
+        name: "home"
+        fields:
+          - { label: "页面标题", name: "title", widget: "string", required: false }
+          - { label: "正文内容", name: "body", widget: "markdown" }
+
+  # 课程资料条目
+  - name: "courses"
+    label: "📚 课程资料"
+    label_singular: "课程"
+    description: "管理各门课程的资料索引页面"
+    folder: "docs/courses"
+    create: true
+    slug: "{{slug}}"
+    preview_path: "courses/{{slug}}"
+    fields:
+      - { label: "课程名称", name: "title", widget: "string" }
+      - { label: "课程分类", name: "category", widget: "select", options: ["公共课程", "电气专业", "电子专业", "微电子专业"] }
+      - { label: "子分类", name: "subcategory", widget: "select", options: ["思政类", "数学类", "物理与化学", "其他公共课", "专业核心课", "实验与实践"], required: false }
+      - { label: "课程图标", name: "icon", widget: "string", default: "📖", required: false }
+      - { label: "内容", name: "body", widget: "markdown", required: false }
+
+  # 公告与更新日志
+  - name: "news"
+    label: "📢 公告与更新"
+    label_singular: "公告"
+    folder: "docs/news"
+    create: true
+    slug: "{{year}}-{{month}}-{{slug}}"
+    fields:
+      - { label: "标题", name: "title", widget: "string" }
+      - { label: "日期", name: "date", widget: "datetime" }
+      - { label: "内容", name: "body", widget: "markdown" }

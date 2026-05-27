@@ -958,7 +958,7 @@
                 html += '<div class="file-name">' + f.name + '</div>';
                 html += '<div class="file-meta">' + formatSize(f.size) + '</div>';
                 html += '</div>';
-                html += '<a class="file-download" href="' + dlUrl + '" target="_blank" rel="noopener">⬇ 下载</a>';
+                html += '<a class="file-download" href="' + dlUrl + '" onclick="downloadFile(event, \'' + dlUrl + '\', \'' + f.name.replace(/'/g, "\\'") + '\')" target="_blank" rel="noopener">⬇ 下载</a>';
                 html += '</div>';
               });
               html += '</div>';
@@ -966,6 +966,42 @@
 
             return html;
           }
+
+          // ===== 跨域文件下载（支持代码/图片等所有类型） =====
+          window.downloadFile = function (event, url, filename) {
+            event.preventDefault();
+            var downloadBtn = event.target;
+            var originalText = downloadBtn.textContent;
+            downloadBtn.textContent = '⏳ 下载中...';
+            downloadBtn.style.pointerEvents = 'none';
+            downloadBtn.style.opacity = '0.6';
+
+            fetch(url, { mode: 'cors' })
+              .then(function (res) {
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                return res.blob();
+              })
+              .then(function (blob) {
+                var blobUrl = URL.createObjectURL(blob);
+                var a = document.createElement('a');
+                a.href = blobUrl;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(blobUrl);
+                downloadBtn.textContent = originalText;
+                downloadBtn.style.pointerEvents = '';
+                downloadBtn.style.opacity = '';
+              })
+              .catch(function (err) {
+                // 如果 fetch 失败（如 CORS 限制），回退到直接打开链接
+                downloadBtn.textContent = originalText;
+                downloadBtn.style.pointerEvents = '';
+                downloadBtn.style.opacity = '';
+                window.open(url, '_blank');
+              });
+          };
 
           // ===== GitHub 文件浏览 =====
           function handleFileBrowse() {
