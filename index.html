@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>XJTU 电气·电子·微电子 学习资料站</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/themes/vue.css">
+  <style>
+    /* ===== 右侧目录侧边栏样式 ===== */
+    .toc-sidebar {
+      position: fixed;
+      right: 0;
+      top: 0;
+      width: 240px;
+      height: 100vh;
+      overflow-y: auto;
+      background: #f8f8f8;
+      border-left: 1px solid #e0e0e0;
+      padding: 80px 16px 20px 20px;
+      z-index: 10;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+    .toc-sidebar .toc-title {
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 12px;
+      color: #333;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #ddd;
+    }
+    .toc-sidebar a {
+      display: block;
+      color: #555;
+      text-decoration: none;
+      padding: 2px 0;
+      border-left: 2px solid transparent;
+      padding-left: 8px;
+      transition: all 0.15s;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .toc-sidebar a:hover,
+    .toc-sidebar a.active {
+      color: #42b983;
+      border-left-color: #42b983;
+    }
+    .toc-sidebar a.toc-h2 { padding-left: 8px; }
+    .toc-sidebar a.toc-h3 { padding-left: 20px; font-size: 12px; }
+    .toc-sidebar a.toc-h4 { padding-left: 32px; font-size: 11px; }
+
+    /* 给正文区域留出右侧空间 */
+    .markdown-section {
+      max-width: calc(100% - 260px) !important;
+    }
+
+    /* 移动端隐藏右侧目录 */
+    @media (max-width: 768px) {
+      .toc-sidebar { display: none; }
+      .markdown-section { max-width: 100% !important; }
+    }
+
+    /* ===== 左上角固定 Logo ===== */
+    .site-logo {
+      position: fixed;
+      top: 12px;
+      left: 16px;
+      z-index: 100;
+      height: 52px;
+      width: auto;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.15));
+      transition: transform 0.3s;
+    }
+    .site-logo:hover {
+      transform: scale(1.05);
+    }
+    html.dark .site-logo {
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));
+    }
+
+    /* 隐藏侧边栏内的 logo */
+    .app-name-link img {
+      display: none;
+    }
+
+    /* ===== 暗黑模式切换按钮 ===== */
+    .dark-mode-toggle {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 1000;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid #ccc;
+      background: #fff;
+      cursor: pointer;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      transition: all 0.3s;
+      line-height: 1;
+    }
+    .dark-mode-toggle:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    }
+
+    /* ===== 暗黑模式全局样式 ===== */
+    html.dark {
+      /* Docsify 主体 */
+      --bg: #1e1e2e;
+      --bg-secondary: #2a2a3c;
+      --bg-sidebar: #1a1a2e;
+      --text: #cdd6f4;
+      --text-secondary: #a6adc8;
+      --text-muted: #6c7086;
+      --border: #45475a;
+      --link: #89b4fa;
+      --link-hover: #b4d0fb;
+      --accent: #42b983;
+      --code-bg: #313244;
+      --table-stripe: #252536;
+    }
+
+    /* --- 左侧 Docsify 侧边栏 --- */
+    html.dark .sidebar {
+      background: #1a1a2e !important;
+      border-right: 1px solid #45475a !important;
+    }
+    html.dark .sidebar-nav li > a,
+    html.dark .sidebar-nav li > p,
+    html.dark .sidebar-nav strong {
+      color: #cdd6f4 !important;
+    }
+    html.dark .sidebar-nav li.active > a {
+      color: #42b983 !important;
+      border-right-color: #42b983 !important;
+    }
+    html.dark .sidebar-nav li > a:hover {
+      color: #89b4fa !important;
+    }
+    html.dark .app-name-link {
+      color: #cdd6f4 !important;
+    }
+    html.dark .search input {
+      background: #313244 !important;
+      color: #cdd6f4 !important;
+      border-color: #45475a !important;
+    }
+    html.dark .search input::placeholder {
+      color: #6c7086 !important;
+    }
+    html.dark .search .results-panel {
+      background: #2a2a3c !important;
+      color: #cdd6f4 !important;
+      border-color: #45475a !important;
+    }
+    html.dark .search .matching-post {
+      border-bottom-color: #45475a !important;
+    }
+    html.dark .search .matching-post .h2 {
+      color: #89b4fa !important;
+    }
+
+    /* --- 内容区域 --- */
+    html.dark body {
+      background: #1e1e2e !important;
+    }
+    html.dark .content {
+      background: #1e1e2e !important;
+    }
+    html.dark .markdown-section {
+      color: #cdd6f4 !important;
+    }
+    html.dark .markdown-section h1,
+    html.dark .markdown-section h2,
+    html.dark .markdown-section h3,
+    html.dark .markdown-section h4,
+    html.dark .markdown-section h5,
+    html.dark .markdown-section h6 {
+      color: #cdd6f4 !important;
+      border-bottom-color: #45475a !important;
+    }
+    html.dark .markdown-section strong {
+      color: #f5c2e7 !important;
+    }
+    html.dark .markdown-section a {
+      color: #89b4fa !important;
+    }
+    html.dark .markdown-section a:hover {
+      color: #b4d0fb !important;
+    }
+
+    /* --- 表格 --- */
+    html.dark .markdown-section table {
+      border-color: #45475a !important;
+    }
+    html.dark .markdown-section th {
+      background: #313244 !important;
+      color: #cdd6f4 !important;
+      border-color: #45475a !important;
+    }
+    html.dark .markdown-section td {
+      border-color: #45475a !important;
+      color: #cdd6f4 !important;
+    }
+    html.dark .markdown-section tr:nth-child(even) td {
+      background: #252536 !important;
+    }
+    html.dark .markdown-section tr:hover td {
+      background: #313244 !important;
+    }
+
+    /* --- 代码块 --- */
+    html.dark .markdown-section code {
+      background: #313244 !important;
+      color: #f38ba8 !important;
+    }
+    html.dark .markdown-section pre {
+      background: #313244 !important;
+      border-color: #45475a !important;
+    }
+    html.dark .markdown-section pre code {
+      background: transparent !important;
+      color: #cdd6f4 !important;
+    }
+
+    /* --- 引用块 --- */
+    html.dark .markdown-section blockquote {
+      background: #252536 !important;
+      border-left-color: #42b983 !important;
+      color: #a6adc8 !important;
+    }
+
+    /* --- 分割线 --- */
+    html.dark .markdown-section hr {
+      border-color: #45475a !important;
+    }
+
+    /* --- 右侧 TOC 侧边栏 --- */
+    html.dark .toc-sidebar {
+      background: #1a1a2e !important;
+      border-left-color: #45475a !important;
+    }
+    html.dark .toc-sidebar .toc-title {
+      color: #cdd6f4 !important;
+      border-bottom-color: #45475a !important;
+    }
+    html.dark .toc-sidebar a {
+      color: #a6adc8 !important;
+    }
+    html.dark .toc-sidebar a:hover,
+    html.dark .toc-sidebar a.active {
+      color: #42b983 !important;
+      border-left-color: #42b983 !important;
+    }
+
+    /* --- 暗黑按钮暗色下样式 --- */
+    html.dark .dark-mode-toggle {
+      background: #313244;
+      border-color: #45475a;
+      color: #f9e2af;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    }
+
+    /* --- Docsify 覆盖导航 --- */
+    html.dark .app-nav a {
+      color: #a6adc8 !important;
+    }
+    html.dark .app-nav a:hover {
+      color: #89b4fa !important;
+    }
+    html.dark .app-nav li ul {
+      background: #2a2a3c !important;
+      border-color: #45475a !important;
+    }
+    html.dark .app-nav li ul li a {
+      color: #cdd6f4 !important;
+    }
+
+    /* --- 分页导航 --- */
+    html.dark .docsify-pagination-container {
+      border-top-color: #45475a !important;
+    }
+    html.dark .pagination-item-label {
+      color: #a6adc8 !important;
+    }
+    html.dark .pagination-item-title {
+      color: #89b4fa !important;
+    }
+  </style>
+</head>
+<body>
+  <!-- 左上角 Logo -->
+  <a href="./" title="返回首页"><img class="site-logo" src="docs/logo.png" alt="XJTU 学习资料站"></a>
+  <div id="app"></div>
+  <!-- 暗黑模式切换按钮 -->
+  <button class="dark-mode-toggle" id="darkModeToggle" title="切换暗黑模式" aria-label="切换暗黑模式">🌙</button>
+  <!-- 右侧目录侧边栏 -->
+  <nav class="toc-sidebar" id="tocSidebar">
+    <div class="toc-title">📑 本节目录</div>
+    <div id="tocContent"></div>
+  </nav>
+  <script>
+    window.$docsify = {
+      name: 'XJTU 电气·电子·微电子',
+      repo: 'https://github.com/Iroul1212/XJTU_EE-study-material',
+      basePath: './docs/',
+      loadSidebar: true,
+      subMaxLevel: 3,
+      auto2top: true,
+      // 搜索配置
+      search: {
+        maxAge: 86400000,
+        paths: 'auto',
+        placeholder: '🔍 搜索课程、资料...',
+        noData: '没有找到相关结果',
+        depth: 4,
+        hideOtherSidebarContent: false,
+      },
+      // 页面切换后自动重建 TOC
+      plugins: [
+        function (hook, vm) {
+          hook.doneEach(function () {
+            buildTOC();
+          });
+        }
+      ]
+    }
+
+    // 从当前页面标题构建右侧目录
+    function buildTOC() {
+      var tocContent = document.getElementById('tocContent');
+      if (!tocContent) return;
+
+      // 获取正文区域所有标题
+      var markdownBody = document.querySelector('.markdown-section');
+      if (!markdownBody) { tocContent.innerHTML = ''; return; }
+
+      var headings = markdownBody.querySelectorAll('h1, h2, h3, h4');
+      var html = '';
+      headings.forEach(function (h) {
+        if (!h.id) return;
+        var level = h.tagName.toLowerCase();
+        html += '<a href="#' + h.id + '" class="toc-' + level + '">' + h.textContent + '</a>';
+      });
+
+      if (!html) {
+        tocContent.innerHTML = '<span style="color:#999;">暂无目录</span>';
+      } else {
+        tocContent.innerHTML = html;
+      }
+
+      // 高亮当前可见标题
+      highlightCurrentHeading();
+    }
+
+    // 滚动高亮当前章节
+    function highlightCurrentHeading() {
+      var links = document.querySelectorAll('#tocContent a');
+      var headings = document.querySelectorAll('.markdown-section h1[id], .markdown-section h2[id], .markdown-section h3[id], .markdown-section h4[id]');
+
+      var currentId = '';
+      headings.forEach(function (h) {
+        var rect = h.getBoundingClientRect();
+        if (rect.top <= 120) {
+          currentId = h.id;
+        }
+      });
+
+      links.forEach(function (a) {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + currentId);
+      });
+    }
+
+    // 监听滚动来高亮目录
+    window.addEventListener('scroll', function () {
+      highlightCurrentHeading();
+    }, { passive: true });
+
+    // ===== 暗黑模式切换逻辑 =====
+    (function () {
+      var DARK_KEY = 'xjtu-ee-dark-mode';
+      var toggle = document.getElementById('darkModeToggle');
+      var html = document.documentElement;
+
+      // 读取保存的偏好（默认跟随系统）
+      function getPref() {
+        var saved = localStorage.getItem(DARK_KEY);
+        if (saved === 'dark') return true;
+        if (saved === 'light') return false;
+        return window.matchMedia('(prefers-color-scheme: dark)').matches;
+      }
+
+      function applyDark(isDark) {
+        if (isDark) {
+          html.classList.add('dark');
+          toggle.textContent = '☀️';
+        } else {
+          html.classList.remove('dark');
+          toggle.textContent = '🌙';
+        }
+      }
+
+      var isDark = getPref();
+      applyDark(isDark);
+
+      toggle.addEventListener('click', function () {
+        isDark = !isDark;
+        applyDark(isDark);
+        localStorage.setItem(DARK_KEY, isDark ? 'dark' : 'light');
+      });
+
+      // 监听系统主题变化（当用户未手动设置时跟随）
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
+        if (localStorage.getItem(DARK_KEY) === null) {
+          isDark = e.matches;
+          applyDark(isDark);
+        }
+      });
+    })();
+  </script>
+  <!-- Docsify v4 核心 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
+  <!-- 搜索插件 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
+</body>
+</html>
