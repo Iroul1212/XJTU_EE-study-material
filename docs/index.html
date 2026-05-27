@@ -6,55 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/themes/vue.css">
   <style>
-    /* ===== 右侧目录侧边栏样式 ===== */
-    .toc-sidebar {
-      position: fixed;
-      right: 0;
-      top: 0;
-      width: 240px;
-      height: 100vh;
-      overflow-y: auto;
-      background: #f8f8f8;
-      border-left: 1px solid #e0e0e0;
-      padding: 80px 16px 20px 20px;
-      z-index: 10;
-      font-size: 13px;
-      line-height: 1.8;
-    }
-    .toc-sidebar .toc-title {
-      font-weight: 700;
-      font-size: 14px;
-      margin-bottom: 12px;
-      color: #333;
-      padding-bottom: 6px;
-      border-bottom: 1px solid #ddd;
-    }
-    .toc-sidebar a {
-      display: block;
-      color: #555;
-      text-decoration: none;
-      padding: 2px 0;
-      border-left: 2px solid transparent;
-      padding-left: 8px;
-      transition: all 0.15s;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .toc-sidebar a:hover,
-    .toc-sidebar a.active {
-      color: #42b983;
-      border-left-color: #42b983;
-    }
-    .toc-sidebar a.toc-h2 { padding-left: 8px; }
-    .toc-sidebar a.toc-h3 { padding-left: 20px; font-size: 12px; }
-    .toc-sidebar a.toc-h4 { padding-left: 32px; font-size: 11px; }
-
-    /* 给正文区域留出右侧空间 */
-    .markdown-section {
-      max-width: calc(100% - 260px) !important;
-    }
-
     /* ===== 搜索栏移到顶部居中 ===== */
     body > .search,
     .search {
@@ -101,9 +52,8 @@
       margin-top: 52px;
     }
 
-    /* 移动端隐藏右侧目录 */
+    /* 移动端 */
     @media (max-width: 768px) {
-      .toc-sidebar { display: none; }
       .markdown-section { max-width: 100% !important; }
     }
 
@@ -232,7 +182,7 @@
     html.dark .markdown-section h4,
     html.dark .markdown-section h5,
     html.dark .markdown-section h6 {
-      color: #cdd6f4 !important;
+      color: #f0f0f0 !important;
       border-bottom-color: #45475a !important;
     }
     html.dark .markdown-section strong {
@@ -291,24 +241,6 @@
       border-color: #45475a !important;
     }
 
-    /* --- 右侧 TOC 侧边栏 --- */
-    html.dark .toc-sidebar {
-      background: #1a1a2e !important;
-      border-left-color: #45475a !important;
-    }
-    html.dark .toc-sidebar .toc-title {
-      color: #cdd6f4 !important;
-      border-bottom-color: #45475a !important;
-    }
-    html.dark .toc-sidebar a {
-      color: #a6adc8 !important;
-    }
-    html.dark .toc-sidebar a:hover,
-    html.dark .toc-sidebar a.active {
-      color: #42b983 !important;
-      border-left-color: #42b983 !important;
-    }
-
     /* --- 暗黑按钮暗色下样式 --- */
     html.dark .dark-mode-toggle {
       background: #313244;
@@ -350,14 +282,9 @@
   <div id="app"></div>
   <!-- 暗黑模式切换按钮 -->
   <button class="dark-mode-toggle" id="darkModeToggle" title="切换暗黑模式" aria-label="切换暗黑模式">🌙</button>
-  <!-- 右侧目录侧边栏 -->
-  <nav class="toc-sidebar" id="tocSidebar">
-    <div class="toc-title">📑 本节目录</div>
-    <div id="tocContent"></div>
-  </nav>
   <script>
     window.$docsify = {
-      name: 'XJTU 电气·电子·微电子',
+      name: '南洋学辅',
       repo: 'https://github.com/Iroul1212/XJTU_EE-study-material',
       loadSidebar: true,
       subMaxLevel: 3,
@@ -374,9 +301,6 @@
       // 页面切换后自动重建 TOC
       plugins: [
         function (hook, vm) {
-          hook.doneEach(function () {
-            buildTOC();
-          });
           // 搜索栏移到 body 顶部居中（JS 兜底）
           hook.mounted(function () {
             var el = document.querySelector('.search');
@@ -397,56 +321,6 @@
         }
       ]
     }
-
-    // 从当前页面标题构建右侧目录
-    function buildTOC() {
-      var tocContent = document.getElementById('tocContent');
-      if (!tocContent) return;
-
-      // 获取正文区域所有标题
-      var markdownBody = document.querySelector('.markdown-section');
-      if (!markdownBody) { tocContent.innerHTML = ''; return; }
-
-      var headings = markdownBody.querySelectorAll('h1, h2, h3, h4');
-      var html = '';
-      headings.forEach(function (h) {
-        if (!h.id) return;
-        var level = h.tagName.toLowerCase();
-        html += '<a href="#' + h.id + '" class="toc-' + level + '">' + h.textContent + '</a>';
-      });
-
-      if (!html) {
-        tocContent.innerHTML = '<span style="color:#999;">暂无目录</span>';
-      } else {
-        tocContent.innerHTML = html;
-      }
-
-      // 高亮当前可见标题
-      highlightCurrentHeading();
-    }
-
-    // 滚动高亮当前章节
-    function highlightCurrentHeading() {
-      var links = document.querySelectorAll('#tocContent a');
-      var headings = document.querySelectorAll('.markdown-section h1[id], .markdown-section h2[id], .markdown-section h3[id], .markdown-section h4[id]');
-
-      var currentId = '';
-      headings.forEach(function (h) {
-        var rect = h.getBoundingClientRect();
-        if (rect.top <= 120) {
-          currentId = h.id;
-        }
-      });
-
-      links.forEach(function (a) {
-        a.classList.toggle('active', a.getAttribute('href') === '#' + currentId);
-      });
-    }
-
-    // 监听滚动来高亮目录
-    window.addEventListener('scroll', function () {
-      highlightCurrentHeading();
-    }, { passive: true });
 
     // ===== 暗黑模式切换逻辑 =====
     (function () {
