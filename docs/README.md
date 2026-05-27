@@ -54,9 +54,9 @@
 
 | 方式 | 难度 | 说明 |
 |:---|:---|:---|
-| 🖥️ [**网页后台直传**](../admin/) | ⭐ 最方便 | 登录 CMS 后台，拖拽上传文件，自动同步到 GitHub |
+| 🖥️ [**网页后台直传**](admin/) | ⭐ 最方便 | 登录 CMS 后台，拖拽上传文件，自动同步到 GitHub |
 | 🚀 [**GitHub 直传**](https://github.com/Iroul1212/XJTU_EE-study-material/upload/main) | ⭐ 简单 | 浏览器拖拽上传，自动发起 Pull Request |
-| 📝 [**图文教程**](../贡献指南.md) | ⭐ 零基础 | 手把手 5 分钟学会，不需要会 Git |
+| 📝 [**图文教程**](贡献指南.md) | ⭐ 零基础 | 手把手 5 分钟学会，不需要会 Git |
 | 💬 [**提 Issue**](https://github.com/Iroul1212/XJTU_EE-study-material/issues/new/choose) | ⭐ 无需注册 | 不会 GitHub？直接传附件，维护者帮你入库 |
 
 每多一份资料，可能就有一位同学在复习时多一分把握。

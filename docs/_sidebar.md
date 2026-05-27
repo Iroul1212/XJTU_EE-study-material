@@ -3,11 +3,11 @@
 - [🏠 网站首页](/)
 
 - **📤 贡献资料**
-    - [🖥️ 网页上传（CMS后台）](../admin/)
-    - [📝 图文教程](../贡献指南.md)
+    - [🖥️ 网页上传（CMS后台）](admin/)
+    - [📝 图文教程](贡献指南.md)
     - [🚀 GitHub直传](https://github.com/Iroul1212/XJTU_EE-study-material/upload/main)
     - [💬 提建议/传附件](https://github.com/Iroul1212/XJTU_EE-study-material/issues/new/choose)
-    - [⚙️ CMS启用说明](../CMS启用说明.md)
+    - [⚙️ CMS启用说明](CMS启用说明.md)
 
 - **�📚 公共课程**
     - **思政类**
