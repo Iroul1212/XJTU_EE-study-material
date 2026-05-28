@@ -1,0 +1,56 @@
+name: 创建课程根目录文件夹
+
+on:
+  push:
+    paths:
+      - 'course-data/**.md'
+
+jobs:
+  create-folders:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 为新课程创建根目录文件夹
+        run: |
+          # 获取本次提交新增的 course-data/*.md 文件
+          ADDED_FILES=$(git diff --name-only --diff-filter=A ${{ github.event.before }} ${{ github.event.after }} -- course-data/*.md 2>/dev/null || echo "")
+
+          if [ -z "$ADDED_FILES" ]; then
+            # 如果是首次提交或无对比，检查所有 course-data/ 文件
+            echo "检查所有课程文件..."
+            for f in course-data/*.md; do
+              [ -f "$f" ] || continue
+              COURSE_NAME=$(basename "$f" .md)
+              FOLDER_PATH="$COURSE_NAME"
+              if [ ! -d "$FOLDER_PATH" ] && [ "$COURSE_NAME" != "README" ]; then
+                echo "创建文件夹: $FOLDER_PATH"
+                mkdir -p "$FOLDER_PATH"
+                echo "# $COURSE_NAME" > "$FOLDER_PATH/.gitkeep"
+                git add "$FOLDER_PATH/.gitkeep"
+              fi
+            done
+          else
+            echo "新增课程文件: $ADDED_FILES"
+            for f in $ADDED_FILES; do
+              COURSE_NAME=$(basename "$f" .md)
+              FOLDER_PATH="$COURSE_NAME"
+              echo "创建文件夹: $FOLDER_PATH"
+              mkdir -p "$FOLDER_PATH"
+              echo "# $COURSE_NAME" > "$FOLDER_PATH/.gitkeep"
+              git add "$FOLDER_PATH/.gitkeep"
+            done
+          fi
+
+      - name: 提交根目录文件夹
+        run: |
+          if git diff --cached --quiet; then
+            echo "没有需要创建的文件夹"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git commit -m "auto: 为新课程创建根目录文件夹"
+            git push
+          fi
