@@ -1,0 +1,95 @@
+name: 📤 资料上传
+description: 上传学习资料（真题、笔记、课件等）
+title: "[资料上传] "
+labels: ["资料上传"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        > 🎉 感谢你分享学习资料！请填写以下信息，方便维护者快速处理。
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: 课程分类
+      description: 该资料属于哪门课程？
+      options:
+        - 高数&CMC
+        - 线代
+        - 概率论
+        - 复变
+        - 数学物理方程
+        - 大学物理
+        - 大物实验
+        - 电路
+        - 电路实验
+        - 模拟电子技术
+        - 数电
+        - 模电数电实验
+        - 电磁场
+        - 电磁场和信号与系统实验
+        - 信号与系统
+        - 大学化学
+        - 大化实验
+        - 大计基
+        - 工程制图
+        - 思修
+        - 史纲
+        - 毛概
+        - 马原
+        - 军理（国防教育）
+        - 习思想
+        - 其他（请在下方说明）
+    validations:
+      required: true
+
+  - type: dropdown
+    id: material_type
+    attributes:
+      label: 资料类型
+      options:
+        - 历年真题/试卷
+        - 课堂笔记
+        - 课件/PPT
+        - 习题解答
+        - 实验报告
+        - 复习提纲
+        - 教材/电子书
+        - 其他
+    validations:
+      required: true
+
+  - type: input
+    id: year
+    attributes:
+      label: 年份/学期
+      description: 例如：2024秋、2025春
+      placeholder: "2024秋"
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 资料描述
+      description: 简要描述资料内容，如包含哪些文件、来源等
+      placeholder: "包含 2024 年秋季期末 A/B 卷及参考答案..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: files
+    attributes:
+      label: 📎 附件上传
+      description: |
+        将资料文件拖拽到此处或点击上传。
+        支持格式：PDF、Word、PPT、Markdown、图片、ZIP 等。
+        > ⚠️ 注意：请勿上传有版权争议的内容。
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: 确认事项
+      options:
+        - label: 我确认上传的资料不包含个人信息（姓名、学号等）
+        - label: 我确认上传的资料不涉及侵权内容

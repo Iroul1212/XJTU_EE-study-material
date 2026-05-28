@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 📖 贡献指南
+    url: https://github.com/Iroul1212/XJTU_EE-study-material/blob/main/docs/%E8%B4%A1%E7%8C%AE%E6%8C%87%E5%8D%97.md
+    about: 上传资料前请先阅读贡献指南
+  - name: 🌐 学习资料站
+    url: https://xjtu-ee-study-material.pages.dev/
+    about: 在线浏览所有学习资料

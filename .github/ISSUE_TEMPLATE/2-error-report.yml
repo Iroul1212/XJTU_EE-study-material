@@ -1,0 +1,53 @@
+name: 🐛 内容纠错
+description: 报告资料中的错误、笔误或过时内容
+title: "[内容纠错] "
+labels: ["内容纠错"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        > 🔍 发现资料中的错误？请告诉我们，帮助提升资料质量！
+
+  - type: input
+    id: file_path
+    attributes:
+      label: 文件路径/链接
+      description: 出错的资料文件路径或网页链接
+      placeholder: "例如：电路/2024期末/电路_2024秋_期末A卷.pdf"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: error_type
+    attributes:
+      label: 错误类型
+      options:
+        - 公式/计算错误
+        - 文字/排版错误
+        - 答案错误
+        - 内容缺失/不完整
+        - 文件损坏/无法打开
+        - 链接失效
+        - 其他
+
+  - type: textarea
+    id: error_desc
+    attributes:
+      label: 错误描述
+      description: 请详细描述错误内容，最好指出具体位置（如第几页、第几题）
+      placeholder: "第 3 页第 5 题的答案应为..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: correct_content
+    attributes:
+      label: 正确内容（选填）
+      description: 如果你知道正确的内容，请在此填写
+      placeholder: "正确的公式/答案应为..."
+
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: 📎 截图（选填）
+      description: 可上传截图帮助定位问题
