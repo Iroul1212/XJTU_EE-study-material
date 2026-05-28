@@ -18,16 +18,19 @@ jobs:
             [ -f "$entry" ] || continue
             echo "Processing: $entry"
             COURSE=$(sed -n '/^course:/s/^course:[[:space:]]*//p' "$entry" | tr -d '"' | tr -d "'")
-            FILENAME=$(sed -n '/^file:/s/^file:[[:space:]]*//p' "$entry" | tr -d '"' | tr -d "'")
-            if [ -z "$COURSE" ] || [ -z "$FILENAME" ]; then
+            FILEPATH=$(sed -n '/^file:/s/^file:[[:space:]]*//p' "$entry" | tr -d '"' | tr -d "'")
+            if [ -z "$COURSE" ] || [ -z "$FILEPATH" ]; then
               echo "  Skip: missing course or file"
               git rm -f "$entry" 2>/dev/null || true
               HAS_CHANGES=true
               continue
             fi
+            # Strip public_folder prefix (/assets/uploads/) to get just the filename
+            FILENAME=$(basename "$FILEPATH")
             SOURCE="docs/assets/uploads/$FILENAME"
             TARGET_DIR="$COURSE"
             TARGET="$TARGET_DIR/$FILENAME"
+            echo "  Course: $COURSE, File: $FILENAME"
             if [ -f "$SOURCE" ]; then
               echo "  Archive: $SOURCE -> $TARGET"
               mkdir -p "$TARGET_DIR"
@@ -35,14 +38,19 @@ jobs:
               git add "$TARGET"
               rm "$SOURCE"
               git rm -f "$SOURCE" 2>/dev/null || true
+              HAS_CHANGES=true
+            else
+              echo "  WARNING: source not found: $SOURCE"
+              ls -la docs/assets/uploads/ 2>/dev/null || echo "  (uploads dir empty)"
             fi
             git rm -f "$entry" 2>/dev/null || true
-            HAS_CHANGES=true
           done
           if [ "$HAS_CHANGES" = true ]; then
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
             git commit -m "auto: archive course files to folders"
             git push
+          else
+            echo "No files to archive"
           fi
 
