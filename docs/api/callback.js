@@ -23,21 +23,13 @@ export default async function handler(req, res) {
     return;
   }
 
-  // Decap CMS 通过 postMessage 接收 token
+  // Decap CMS 通过 postMessage 接收 token（必须是字符串格式）
   res.setHeader('Content-Type', 'text/html');
   res.end(`<!DOCTYPE html>
 <html><head><script>
   var token = '${data.access_token}';
-  var attempts = 0;
-  function send() {
-    if (window.opener && window.opener !== window) {
-      window.opener.postMessage({ token: token, provider: 'github' }, '*');
-      window.close();
-    } else if (attempts < 10) {
-      attempts++;
-      setTimeout(send, 500);
-    }
-  }
-  send();
+  var payload = JSON.stringify({ token: token, provider: 'github' });
+  var msg = 'authorization:github:success:' + payload;
+  window.opener.postMessage(msg, '*');
 </script></head><body><p>授权成功，窗口即将关闭...</p></body></html>`);
 }
