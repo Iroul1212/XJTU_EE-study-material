@@ -4,7 +4,8 @@
     { "source": "/admin/config.yml", "destination": "/admin/config.yml" },
     { "source": "/admin/signup.html", "destination": "/admin/signup.html" },
     { "source": "/admin/(.*)", "destination": "/admin/index.html" },
-    { "source": "/(.*\\.(md|png|jpg|jpeg|gif|svg|webp|ico|pdf|zip|rar|7z|doc|docx|ppt|pptx|xls|xlsx|csv|txt|json|xml|woff2?|ttf|eot))", "destination": "/$1" },
+    { "source": "/_sidebar.md", "destination": "/_sidebar.md" },
+    { "source": "/README.md", "destination": "/README.md" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
