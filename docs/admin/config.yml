@@ -88,20 +88,6 @@ collections:
           - { label: "⭐ 星标", value: "⭐" }
       - { label: "内容", name: "body", widget: "markdown", required: false }
 
-  # 课程文件夹（创建课程索引标记文件）
-  - name: "course_folders"
-    label: "📁 课程文件夹"
-    label_singular: "文件夹"
-    description: "创建新课程。保存后会在 docs/courses/ 目录生成对应文件。"
-    folder: "docs/course_folders"
-    create: true
-    slug: "{{slug}}"
-    summary: "📁 {{slug}}"
-    identifier_field: "title"
-    fields:
-      - { label: "文件夹名（课程名）", name: "title", widget: "string", hint: "例如：嵌入式系统" }
-      - { label: "课程简介", name: "body", widget: "markdown", required: false }
-
   # 媒体文件上传
   - name: "media"
     label: "📎 媒体文件"
