@@ -6,7 +6,7 @@ export default function handler(req, res) {
   const authUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${scope}`;
 
   // 必须先发送 handshake 消息给 CMS，然后才能跳转
-  res.setHeader('Content-Type', 'text/html');
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.end(`<!DOCTYPE html>
 <html><head><script>
   if (window.opener) {

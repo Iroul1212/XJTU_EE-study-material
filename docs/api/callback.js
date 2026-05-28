@@ -24,7 +24,7 @@ export default async function handler(req, res) {
   }
 
   // Decap CMS 通过 postMessage 接收 token（必须是字符串格式）
-  res.setHeader('Content-Type', 'text/html');
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.end(`<!DOCTYPE html>
 <html><head><script>
   var token = '${data.access_token}';
