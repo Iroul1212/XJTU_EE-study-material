@@ -88,12 +88,12 @@ collections:
           - { label: "⭐ 星标", value: "⭐" }
       - { label: "内容", name: "body", widget: "markdown", required: false }
 
-  # 课程文件夹（在 GitHub 仓库根目录创建课程索引文件）
+  # 课程文件夹（创建课程索引标记文件）
   - name: "course_folders"
     label: "📁 课程文件夹"
     label_singular: "文件夹"
-    description: "在仓库根目录创建课程索引文件。文件名即为课程文件夹名。"
-    folder: "."
+    description: "创建新课程。保存后会在 docs/courses/ 目录生成对应文件。"
+    folder: "docs/course_folders"
     create: true
     slug: "{{slug}}"
     summary: "📁 {{slug}}"
