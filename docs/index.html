@@ -592,6 +592,12 @@
       name: '南洋学辅',
       repo: 'https://github.com/Iroul1212/XJTU_EE-study-material',
       loadSidebar: true,
+      // 强制所有路由都加载根目录的 _sidebar.md，
+      // 避免进入课程页面（如 #/../思修/）时 Docsify 尝试
+      // 加载 /思修/_sidebar.md 导致 Netlify 返回 index.html 而卡在 loading
+      alias: {
+        '/.*/_sidebar.md': '/_sidebar.md',
+      },
       subMaxLevel: 3,
       auto2top: true,
       // 搜索配置（仅用于输入框样式，实际搜索由自定义逻辑接管）
@@ -614,7 +620,7 @@
             { name: '史纲', alias: ['近代史纲要', '近代史', '中国近现代史'], category: '公共课程 / 思政类', path: '../史纲/', icon: '📖' },
             { name: '毛概', alias: ['毛泽东思想', '毛泽东'], category: '公共课程 / 思政类', path: '../毛概/', icon: '📖' },
             { name: '马原', alias: ['马克思主义', '马克思', '马哲'], category: '公共课程 / 思政类', path: '../马原/', icon: '📖' },
-            { name: '习思想', alias: ['习近平', '新时代', '中特'], category: '公共课程 / 思政类', path: '../习思想/', icon: '📖' },
+            { name: '习思想', alias: ['习近平', '新时代', '中特', '习概'], category: '公共课程 / 思政类', path: '../习思想/', icon: '📖' },
             { name: '军理', alias: ['国防教育', '军事理论', '军事'], category: '公共课程 / 思政类', path: '../军理（国防教育）/', icon: '🎖️' },
             // 公共课程 - 数学类
             { name: '高数&CMC', alias: ['高等数学', '高数', 'CMC', '数学竞赛'], category: '公共课程 / 数学类', path: '../高数%26CMC/', icon: '📐' },
