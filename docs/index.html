@@ -1012,6 +1012,11 @@
           // ===== GitHub 文件浏览 =====
           function handleFileBrowse() {
             var hash = window.location.hash;
+            // CMS 后台需要以独立页面打开，不能嵌在 Docsify SPA 中
+            if (hash === '#/admin/' || hash === '#/admin') {
+              window.location.href = '/admin/';
+              return;
+            }
             // 匹配: #/../课程名/ 或 #/../课程名/子目录/... 
             var match = hash.match(/^#\/\.\.\/(.+?)\/?$/);
             if (!match) return;
