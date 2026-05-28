@@ -102,6 +102,49 @@ collections:
       - { label: "课程分类", name: "category", widget: "select", options: ["公共课程", "电气专业", "电子专业", "微电子专业"], required: false }
       - { label: "课程简介", name: "body", widget: "markdown", required: false }
 
+  # 上传资料文件（通过 GitHub Action 自动归入课程文件夹）
+  - name: "file_uploads"
+    label: "📤 上传资料"
+    label_singular: "资料"
+    description: "上传课程资料（PDF、图片等）。选择目标课程后上传，系统自动归档到对应课程文件夹。"
+    folder: "docs/file-queue"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{hour}}-{{minute}}-{{slug}}"
+    summary: "📄 {{course}} / {{title}}"
+    fields:
+      - label: "目标课程"
+        name: "course"
+        widget: "select"
+        options:
+          - "习思想"
+          - "军理（国防教育）"
+          - "史纲"
+          - "思修"
+          - "马原"
+          - "毛概"
+          - "高数&CMC"
+          - "线代"
+          - "概率论"
+          - "复变"
+          - "数学物理方程"
+          - "大学物理"
+          - "大物实验"
+          - "大学化学"
+          - "大化实验"
+          - "工程制图"
+          - "大计基"
+          - "电路"
+          - "电路实验"
+          - "电磁场"
+          - "电磁场和信号与系统实验"
+          - "模拟电子技术"
+          - "数电"
+          - "模电数电实验"
+          - "信号与系统"
+          - "南洋独家资料"
+      - { label: "资料名称", name: "title", widget: "string" }
+      - { label: "资料文件", name: "file", widget: "file" }
+
   # 公告与更新日志
   - name: "news"
     label: "📢 公告与更新"
