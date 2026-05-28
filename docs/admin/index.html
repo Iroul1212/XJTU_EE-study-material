@@ -13,9 +13,36 @@
     [class*="PreviewPaneContainer"] {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
     }
+    /* 注册链接 */
+    .custom-signup-link {
+      display: block;
+      text-align: center;
+      margin-top: 12px;
+      font-size: 14px;
+      color: #4a8cd9;
+      text-decoration: none;
+    }
+    .custom-signup-link:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
   <script src="https://unpkg.com/decap-cms@3.6.1/dist/decap-cms.js"></script>
+  <script>
+    // 在登录按钮旁边注入"注册"链接
+    const observer = new MutationObserver(() => {
+      if (document.querySelector('.custom-signup-link')) return;
+      const loginBtn = document.querySelector('[class*="LoginButton"]');
+      if (loginBtn) {
+        const link = document.createElement('a');
+        link.href = '/admin/signup.html';
+        link.className = 'custom-signup-link';
+        link.textContent = '没有账号？注册';
+        loginBtn.insertAdjacentElement('afterend', link);
+      }
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+  </script>
 </body>
 </html>

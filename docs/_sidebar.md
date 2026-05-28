@@ -4,7 +4,6 @@
 
 - **📤 贡献资料**
     - [🖥️ 网页上传（CMS后台）](admin/)
-    - [📝 注册账号](admin/signup.html)
     - [📝 图文教程](贡献指南.md)
     - [🚀 GitHub直传](https://github.com/Iroul1212/XJTU_EE-study-material/upload/main)
     - [💬 提建议/传附件](https://github.com/Iroul1212/XJTU_EE-study-material/issues/new/choose)
