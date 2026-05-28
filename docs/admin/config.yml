@@ -5,9 +5,9 @@ backend:
   base_url: https://xjtu-nyxf-study-material.vercel.app
   auth_endpoint: api/auth
   
-# 媒体文件存储位置
-media_folder: "docs/assets/uploads"
-public_folder: "/assets/uploads"
+# 媒体文件存储位置（仓库根目录，支持选择课程文件夹）
+media_folder: "."
+public_folder: "/"
 
 # 站点 URL
 site_url: https://iroul1212.github.io/XJTU_EE-study-material
@@ -87,19 +87,6 @@ collections:
           - { label: "📌 图钉", value: "📌" }
           - { label: "⭐ 星标", value: "⭐" }
       - { label: "内容", name: "body", widget: "markdown", required: false }
-
-  # 媒体文件上传
-  - name: "media"
-    label: "📎 媒体文件"
-    label_singular: "文件"
-    description: "上传课程资料文件（PDF、图片等）。也可在编辑其他内容时直接拖拽文件到编辑器。"
-    folder: "docs/assets/uploads/_files"
-    create: true
-    slug: "{{slug}}"
-    summary: "📄 {{title}}"
-    fields:
-      - { label: "文件描述", name: "title", widget: "string" }
-      - { label: "文件", name: "media", widget: "file" }
 
   # 公告与更新日志
   - name: "news"
