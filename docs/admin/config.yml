@@ -20,7 +20,7 @@ locale: "zh_Hans"
 logo_url: https://iroul1212.github.io/XJTU_EE-study-material/logo.png
 
 # 编辑器配置
-publish_mode: editorial_workflow
+# publish_mode: editorial_workflow
 
 # ========== 内容集合定义 ==========
 collections:
