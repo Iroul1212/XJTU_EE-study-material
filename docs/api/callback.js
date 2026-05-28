@@ -27,10 +27,17 @@ export default async function handler(req, res) {
   res.setHeader('Content-Type', 'text/html');
   res.end(`<!DOCTYPE html>
 <html><head><script>
-  window.opener.postMessage(
-    { token: '${data.access_token}', provider: 'github' },
-    '*'
-  );
-  window.close();
+  var token = '${data.access_token}';
+  var attempts = 0;
+  function send() {
+    if (window.opener && window.opener !== window) {
+      window.opener.postMessage({ token: token, provider: 'github' }, '*');
+      window.close();
+    } else if (attempts < 10) {
+      attempts++;
+      setTimeout(send, 500);
+    }
+  }
+  send();
 </script></head><body><p>授权成功，窗口即将关闭...</p></body></html>`);
 }
