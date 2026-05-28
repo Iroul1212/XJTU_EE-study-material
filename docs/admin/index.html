@@ -153,7 +153,7 @@
     // ===== 返回首页按钮 =====
     (function() {
       const homeLink = document.createElement('a');
-      homeLink.href = 'https://celadon-malasada-e61291.netlify.app';
+      homeLink.href = 'https://iroul1212.github.io/XJTU_EE-study-material';
       homeLink.className = 'custom-home-link';
       homeLink.innerHTML = '← 返回首页';
       document.body.appendChild(homeLink);
@@ -162,12 +162,13 @@
     // ===== 在登录按钮旁注入"注册"链接 =====
     const observer = new MutationObserver(() => {
       if (document.querySelector('.custom-signup-link')) return;
-      const loginBtn = document.querySelector('[class*="LoginButton"]');
+      const loginBtn = document.querySelector('[class*="LoginButton"], [class*="GitHubButton"]');
       if (loginBtn) {
         const link = document.createElement('a');
-        link.href = '/admin/signup.html';
+        link.href = 'https://github.com/signup';
+        link.target = '_blank';
         link.className = 'custom-signup-link';
-        link.textContent = '没有账号？注册';
+        link.textContent = '没有 GitHub 账号？免费注册';
         loginBtn.insertAdjacentElement('afterend', link);
       }
     });
