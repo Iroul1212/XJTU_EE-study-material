@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>注册 - XJTU 南洋学辅学习资料站</title>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #333;
+    }
+    .container {
+      background: #fff;
+      border-radius: 16px;
+      padding: 48px 40px;
+      width: 400px;
+      max-width: 90vw;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+    h1 { font-size: 24px; margin-bottom: 8px; color: #1a1a2e; }
+    p.subtitle { color: #666; font-size: 14px; margin-bottom: 32px; }
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-bottom: 12px;
+      transition: all 0.2s;
+      font-weight: 600;
+    }
+    .btn-primary {
+      background: #4a8cd9;
+      color: #fff;
+    }
+    .btn-primary:hover { background: #3a7bc8; }
+    .btn-github {
+      background: #24292e;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .btn-github:hover { background: #1b1f23; }
+    .btn-google {
+      background: #fff;
+      color: #444;
+      border: 1px solid #ddd;
+    }
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 20px 0;
+      color: #999;
+      font-size: 13px;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #ddd;
+    }
+    .divider span { padding: 0 12px; }
+    .back-link {
+      margin-top: 24px;
+      font-size: 14px;
+      color: #4a8cd9;
+      text-decoration: none;
+    }
+    .back-link:hover { text-decoration: underline; }
+    .note {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #999;
+      line-height: 1.6;
+    }
+    #message {
+      margin-top: 16px;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 14px;
+      display: none;
+    }
+    #message.success { background: #e6f7e6; color: #2e7d32; display: block; }
+    #message.error { background: #fde8e8; color: #c62828; display: block; }
+    #message.info { background: #e3f2fd; color: #1565c0; display: block; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📝 注册账号</h1>
+    <p class="subtitle">注册后即可使用 CMS 后台上传资料</p>
+
+    <button class="btn btn-primary" onclick="openSignup()">📧 使用邮箱注册</button>
+    <button class="btn btn-github" onclick="loginGitHub()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+      GitHub 登录
+    </button>
+
+    <div id="message"></div>
+
+    <div class="note">
+      注册后请检查邮箱（含垃圾箱）中的确认邮件。<br>
+      确认后前往 <a href="/admin/" style="color:#4a8cd9">CMS 后台</a> 登录。
+    </div>
+
+    <a href="/admin/" class="back-link">← 返回登录页</a>
+  </div>
+
+  <script>
+    const msg = document.getElementById('message');
+
+    function showMsg(text, type) {
+      msg.textContent = text;
+      msg.className = type;
+    }
+
+    function openSignup() {
+      showMsg('正在打开注册窗口...', 'info');
+      // Netlify Identity widget signup
+      const authUrl = 'https://celadon-malasada-e61291.netlify.app/.netlify/identity/authorize?provider=email&response_type=token&site_id=celadon-malasada-e61291';
+      window.location.href = authUrl;
+    }
+
+    function loginGitHub() {
+      showMsg('正在跳转 GitHub 登录...', 'info');
+      netlifyIdentity.open('login');
+    }
+  </script>
+</body>
+</html>

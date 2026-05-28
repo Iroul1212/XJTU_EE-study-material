@@ -5,6 +5,18 @@
   publish = "."
   command = "echo 'No build step'"
 
+# ⚠️ 重定向按顺序匹配，config.yml 必须放在通配规则前面！
+
+[[redirects]]
+  from = "/admin/config.yml"
+  to = "/admin/config.yml"
+  status = 200
+
+[[redirects]]
+  from = "/admin/signup.html"
+  to = "/admin/signup.html"
+  status = 200
+
 [[redirects]]
   from = "/admin"
   to = "/admin/index.html"
