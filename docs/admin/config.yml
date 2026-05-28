@@ -90,12 +90,13 @@ collections:
     label: "📁 课程文件夹"
     label_singular: "文件夹"
     description: "创建课程对应的 GitHub 文件夹。新建课程时请在此创建同名文件夹。"
-    folder: ""
+    folder: "."
     nested:
-      depth: 2
+      depth: 1
     create: true
     slug: "{{slug}}/README"
-    summary: "📁 {{dirname}}/"
+    summary: "📁 {{slug}}"
+    identifier_field: "title"
     fields:
       - { label: "文件夹名（课程名）", name: "title", widget: "string", hint: "例如：嵌入式系统" }
       - { label: "课程简介", name: "body", widget: "markdown", required: false }
@@ -105,8 +106,6 @@ collections:
     label: "📎 媒体文件"
     label_singular: "文件"
     description: "上传课程资料文件（PDF、图片等）。也可在编辑其他内容时直接拖拽文件到编辑器。"
-    media_folder: ""
-    public_folder: "/assets/uploads"
     folder: "docs/assets/uploads/_files"
     create: true
     slug: "{{slug}}"
