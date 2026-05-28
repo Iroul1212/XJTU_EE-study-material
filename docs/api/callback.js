@@ -29,7 +29,8 @@ export default async function handler(req, res) {
 <html><head><script>
   window.opener.postMessage(
     { token: '${data.access_token}', provider: 'github' },
-    window.location.origin
+    '*'
   );
+  window.close();
 </script></head><body><p>授权成功，窗口即将关闭...</p></body></html>`);
 }
