@@ -7,8 +7,8 @@ export default async function handler(req, res) {
     return;
   }
 
-  const clientId = process.env.OAUTH_CLIENT_ID;
-  const clientSecret = process.env.OAUTH_CLIENT_SECRET;
+  const clientId = process.env.OAUTH_CLIENT_ID || 'Ov23liuxjOohNqFnQwJg';
+  const clientSecret = process.env.OAUTH_CLIENT_SECRET || '0f9dc3d30212f65edcf1e1b447e9cab683c04cf5';
 
   const tokenRes = await fetch('https://github.com/login/oauth/access_token', {
     method: 'POST',
