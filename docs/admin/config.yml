@@ -94,8 +94,6 @@ collections:
     label_singular: "文件夹"
     description: "创建课程对应的 GitHub 文件夹。新建课程时请在此创建同名文件夹。"
     folder: "."
-    nested:
-      depth: 1
     create: true
     slug: "{{slug}}/README"
     summary: "📁 {{slug}}"
