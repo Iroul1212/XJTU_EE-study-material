@@ -34,11 +34,11 @@ collections:
           - { label: "页面标题", name: "title", widget: "string", required: false }
           - { label: "正文内容", name: "body", widget: "markdown" }
 
-  # 课程资料条目
+  # 课程资料条目（网站索引页）
   - name: "courses"
     label: "📚 课程资料"
     label_singular: "课程"
-    description: "管理各门课程的资料索引页面"
+    description: "管理各门课程的网站索引页面"
     folder: "docs/courses"
     create: true
     slug: "{{slug}}"
@@ -47,8 +47,73 @@ collections:
       - { label: "课程名称", name: "title", widget: "string" }
       - { label: "课程分类", name: "category", widget: "select", options: ["公共课程", "电气专业", "电子专业", "微电子专业"] }
       - { label: "子分类", name: "subcategory", widget: "select", options: ["思政类", "数学类", "物理与化学", "其他公共课", "专业核心课", "实验与实践"], required: false }
-      - { label: "课程图标", name: "icon", widget: "string", default: "📖", required: false }
+      - label: "课程图标"
+        name: "icon"
+        widget: "select"
+        default: "📖"
+        required: false
+        options:
+          - { label: "📖 书本", value: "📖" }
+          - { label: "📘 蓝书", value: "📘" }
+          - { label: "📙 橙书", value: "📙" }
+          - { label: "📕 红书", value: "📕" }
+          - { label: "📗 绿书", value: "📗" }
+          - { label: "📓 笔记本", value: "📓" }
+          - { label: "📝 备忘录", value: "📝" }
+          - { label: "📐 三角尺", value: "📐" }
+          - { label: "📏 直尺", value: "📏" }
+          - { label: "🔬 显微镜", value: "🔬" }
+          - { label: "🔭 望远镜", value: "🔭" }
+          - { label: "⚡ 闪电", value: "⚡" }
+          - { label: "💡 灯泡", value: "💡" }
+          - { label: "🔋 电池", value: "🔋" }
+          - { label: "🧲 磁铁", value: "🧲" }
+          - { label: "🧮 算盘", value: "🧮" }
+          - { label: "📊 图表", value: "📊" }
+          - { label: "📈 上升", value: "📈" }
+          - { label: "🧪 试管", value: "🧪" }
+          - { label: "⚛️ 原子", value: "⚛️" }
+          - { label: "💻 电脑", value: "💻" }
+          - { label: "🖥️ 显示器", value: "🖥️" }
+          - { label: "🔧 扳手", value: "🔧" }
+          - { label: "🛠️ 工具", value: "🛠️" }
+          - { label: "🎓 学士帽", value: "🎓" }
+          - { label: "🏫 学校", value: "🏫" }
+          - { label: "✏️ 铅笔", value: "✏️" }
+          - { label: "📋 剪贴板", value: "📋" }
+          - { label: "📌 图钉", value: "📌" }
+          - { label: "⭐ 星标", value: "⭐" }
       - { label: "内容", name: "body", widget: "markdown", required: false }
+
+  # 课程文件夹（在 GitHub 仓库根目录创建课程文件夹及 README）
+  - name: "course_folders"
+    label: "📁 课程文件夹"
+    label_singular: "文件夹"
+    description: "创建课程对应的 GitHub 文件夹。新建课程时请在此创建同名文件夹。"
+    folder: ""
+    nested:
+      depth: 2
+    create: true
+    slug: "{{slug}}/README"
+    summary: "📁 {{dirname}}/"
+    fields:
+      - { label: "文件夹名（课程名）", name: "title", widget: "string", hint: "例如：嵌入式系统" }
+      - { label: "课程简介", name: "body", widget: "markdown", required: false }
+
+  # 媒体文件上传
+  - name: "media"
+    label: "📎 媒体文件"
+    label_singular: "文件"
+    description: "上传课程资料文件（PDF、图片等）。也可在编辑其他内容时直接拖拽文件到编辑器。"
+    media_folder: ""
+    public_folder: "/assets/uploads"
+    folder: "docs/assets/uploads/_files"
+    create: true
+    slug: "{{slug}}"
+    summary: "📄 {{title}}"
+    fields:
+      - { label: "文件描述", name: "title", widget: "string" }
+      - { label: "文件", name: "media", widget: "file" }
 
   # 公告与更新日志
   - name: "news"
