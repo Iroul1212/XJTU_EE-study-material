@@ -88,14 +88,14 @@ collections:
           - { label: "⭐ 星标", value: "⭐" }
       - { label: "内容", name: "body", widget: "markdown", required: false }
 
-  # 课程文件夹（在 GitHub 仓库根目录创建课程文件夹及 README）
+  # 课程文件夹（在 GitHub 仓库根目录创建课程索引文件）
   - name: "course_folders"
     label: "📁 课程文件夹"
     label_singular: "文件夹"
-    description: "创建课程对应的 GitHub 文件夹。新建课程时请在此创建同名文件夹。"
+    description: "在仓库根目录创建课程索引文件。文件名即为课程文件夹名。"
     folder: "."
     create: true
-    slug: "{{slug}}/README"
+    slug: "{{slug}}"
     summary: "📁 {{slug}}"
     identifier_field: "title"
     fields:
