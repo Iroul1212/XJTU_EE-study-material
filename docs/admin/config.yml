@@ -88,6 +88,20 @@ collections:
           - { label: "⭐ 星标", value: "⭐" }
       - { label: "内容", name: "body", widget: "markdown", required: false }
 
+  # 课程文件夹（创建后 GitHub Action 自动生成根目录文件夹）
+  - name: "course_folders"
+    label: "📁 新建课程"
+    label_singular: "课程"
+    description: "创建新课程。保存后自动在仓库根目录生成同名文件夹用于存放资料。"
+    folder: "course-data"
+    create: true
+    slug: "{{slug}}"
+    summary: "📁 {{title}}"
+    fields:
+      - { label: "课程名称", name: "title", widget: "string", hint: "例如：嵌入式系统，保存后自动创建根目录文件夹" }
+      - { label: "课程分类", name: "category", widget: "select", options: ["公共课程", "电气专业", "电子专业", "微电子专业"], required: false }
+      - { label: "课程简介", name: "body", widget: "markdown", required: false }
+
   # 公告与更新日志
   - name: "news"
     label: "📢 公告与更新"
