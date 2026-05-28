@@ -8,7 +8,7 @@
     - [🚀 GitHub直传](https://github.com/Iroul1212/XJTU_EE-study-material/upload/main)
     - [💬 提建议/传附件](https://github.com/Iroul1212/XJTU_EE-study-material/issues/new/choose)
 
-- **�📚 公共课程**
+- **📚 公共课程**
     - **思政类**
         - [思修](../思修/)
         - [史纲](../史纲/)
