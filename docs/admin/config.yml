@@ -2,7 +2,8 @@ backend:
   name: github
   repo: Iroul1212/XJTU_EE-study-material
   branch: main
-  base_url: https://api.netlify.com
+  base_url: https://YOUR-VERCEL-URL.vercel.app
+  auth_endpoint: api/auth
   auth_endpoint: auth
   
 # 媒体文件存储位置
