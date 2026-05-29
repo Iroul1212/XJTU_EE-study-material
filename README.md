@@ -1,4 +1,4 @@
-# XJTU_EE-study-material
+<img width="2166" height="818" alt="image" src="https://github.com/user-attachments/assets/7a78513b-8783-47ca-b760-dc0a8d68321a" /># XJTU_EE-study-material
 ## 介绍
 - 本人电气2024级学生，这个repo用于存储本人学习过程中用过的资料，同时也希望对学弟学妹们有帮助
 - 该repo包括内容含专业课、基础课程以及思政类课，均为电气类（非钱班、非越杰）培养方案上所包含的内容
@@ -29,3 +29,13 @@
 上传部分 **电磁场与波**、 **信号与系统**、 **数电** 资料
 ## 2026/05/26
 上传 **数电实验**、大部分 **电磁场与波和信号与系统实验**资料
+
+---
+# 重大更新
+## 2026/5/29
+现在该repo以作为南洋学辅资料网站的仓库
+
+网址： https://xjtu-nyxf-study-material.pages.dev/#/
+
+纯vibe coding项目，感谢Deepseek大善人的token和Cloudflare的免费域名
+
