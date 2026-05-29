@@ -2,7 +2,7 @@ backend:
   name: github
   repo: Iroul1212/XJTU_EE-study-material
   branch: main
-  base_url: https://xjtu-nyxf-study-material.vercel.app
+  base_url: https://xjtu-nyxf-study-material.pages.dev
   auth_endpoint: api/auth
   
 # 媒体文件存储位置
