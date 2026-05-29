@@ -37,7 +37,7 @@
 
 网址： https://xjtu-nyxf-study-material.pages.dev/#/
 
-纯vibe coding项目，感谢Deepseek大善人的token和Cloudflare的免费域名
+纯vibe coding项目，感谢Deepseek大善人的token和Cloudflare大善人的免费域名
 
 > ps：现在属于刚刚建立试运营期，欢迎大家反馈！
 
