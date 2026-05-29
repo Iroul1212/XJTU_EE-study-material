@@ -619,41 +619,122 @@
       // 页面切换后自动重建 TOC
       plugins: [
         function (hook, vm) {
-          // ===== 课程搜索引擎：课程索引 =====
-          // 格式: { name: 课程名, alias: [别名], category: 分类路径, path: 链接路径, icon: 图标 }
-          var COURSE_INDEX = [
-            // 公共课程 - 思政类
-            { name: '思修', alias: ['思想道德修养', '思想道德'], category: '公共课程 / 思政类', path: '../思修/', icon: '📖' },
-            { name: '史纲', alias: ['近代史纲要', '近代史', '中国近现代史'], category: '公共课程 / 思政类', path: '../史纲/', icon: '📖' },
-            { name: '毛概', alias: ['毛泽东思想', '毛泽东'], category: '公共课程 / 思政类', path: '../毛概/', icon: '📖' },
-            { name: '马原', alias: ['马克思主义', '马克思', '马哲'], category: '公共课程 / 思政类', path: '../马原/', icon: '📖' },
-            { name: '习思想', alias: ['习近平', '新时代', '中特', '习概'], category: '公共课程 / 思政类', path: '../习思想/', icon: '📖' },
-            { name: '军理', alias: ['国防教育', '军事理论', '军事'], category: '公共课程 / 思政类', path: '../军理（国防教育）/', icon: '🎖️' },
-            // 公共课程 - 数学类
-            { name: '高数&CMC', alias: ['高等数学', '高数', 'CMC', '数学竞赛'], category: '公共课程 / 数学类', path: '../高数%26CMC/', icon: '📐' },
-            { name: '线代', alias: ['线性代数', '矩阵'], category: '公共课程 / 数学类', path: '../线代/', icon: '📐' },
-            { name: '概率论', alias: ['概率统计', '概率', '统计'], category: '公共课程 / 数学类', path: '../概率论/', icon: '📐' },
-            { name: '复变', alias: ['复变函数', '复数'], category: '公共课程 / 数学类', path: '../复变/', icon: '📐' },
-            { name: '数学物理方程', alias: ['数理方程', '偏微分方程', 'PDE'], category: '公共课程 / 数学类', path: '../数学物理方程/', icon: '📐' },
-            // 公共课程 - 物理与化学
-            { name: '大学物理', alias: ['大物', '物理', '力学', '电磁学'], category: '公共课程 / 物理与化学', path: '../大学物理/', icon: '🔬' },
-            { name: '大物实验', alias: ['物理实验', '大学物理实验'], category: '公共课程 / 物理与化学', path: '../大物实验/', icon: '🧪' },
-            { name: '大学化学', alias: ['大化', '化学'], category: '公共课程 / 物理与化学', path: '../大学化学/', icon: '⚗️' },
-            { name: '大化实验', alias: ['化学实验', '大学化学实验'], category: '公共课程 / 物理与化学', path: '../大化实验/', icon: '🧪' },
-            // 公共课程 - 其他
-            { name: '工程制图', alias: ['工图', '制图', 'CAD'], category: '公共课程 / 其他', path: '../工程制图/', icon: '✏️' },
-            { name: '大计基', alias: ['大学计算机基础', '计算机基础', '计基', '编程'], category: '公共课程 / 其他', path: '../大计基/', icon: '💻' },
-            // 电气专业 - 核心课
-            { name: '电路', alias: ['电路分析', '电路理论', '基尔霍夫'], category: '电气专业 / 专业核心课', path: '../电路/', icon: '⚡' },
-            { name: '电路实验', alias: ['电路实验课'], category: '电气专业 / 专业核心课', path: '../电路实验/', icon: '⚡' },
-            { name: '模拟电子技术', alias: ['模电', '模拟电路', '运放', '放大器'], category: '电气专业 / 专业核心课', path: '../模拟电子技术/', icon: '🔌' },
-            { name: '数电', alias: ['数字电子技术', '数字电路', '逻辑电路', 'FPGA'], category: '电气专业 / 专业核心课', path: '../数电/', icon: '🔌' },
-            { name: '电磁场', alias: ['电磁场理论', '电磁波', '麦克斯韦'], category: '电气专业 / 专业核心课', path: '../电磁场/', icon: '🧲' },
-            { name: '信号与系统', alias: ['信号', '系统', '傅里叶', '拉普拉斯', '卷积'], category: '电气专业 / 专业核心课', path: '../信号与系统/', icon: '📶' },
-            // 电气专业 - 实验
-            { name: '模电数电实验', alias: ['模电实验', '数电实验', '电子实验'], category: '电气专业 / 实验与实践', path: '../模电数电实验/', icon: '🧪' },
-            { name: '电磁场和信号与系统实验', alias: ['电磁实验', '信号实验'], category: '电气专业 / 实验与实践', path: '../电磁场和信号与系统实验/', icon: '🧪' }
-          ];
+          // ===== 课程搜索引擎：从 _sidebar.md 动态解析课程索引 =====
+          // 别名映射表（新增课程时在此添加别名即可，无需修改索引）
+          var COURSE_ALIAS_MAP = {
+            '思修': ['思想道德修养', '思想道德'],
+            '史纲': ['近代史纲要', '近代史', '中国近现代史'],
+            '毛概': ['毛泽东思想', '毛泽东'],
+            '马原': ['马克思主义', '马克思', '马哲'],
+            '习思想': ['习近平', '新时代', '中特', '习概'],
+            '军理（国防教育）': ['国防教育', '军事理论', '军事', '军理'],
+            '高数&CMC': ['高等数学', '高数', 'CMC', '数学竞赛'],
+            '线代': ['线性代数', '矩阵'],
+            '概率论': ['概率统计', '概率', '统计'],
+            '复变': ['复变函数', '复数'],
+            '数学物理方程': ['数理方程', '偏微分方程', 'PDE'],
+            '大学物理': ['大物', '物理', '力学', '电磁学'],
+            '大物实验': ['物理实验', '大学物理实验'],
+            '大学化学': ['大化', '化学'],
+            '大化实验': ['化学实验', '大学化学实验'],
+            '工程制图': ['工图', '制图', 'CAD'],
+            '大计基': ['大学计算机基础', '计算机基础', '计基', '编程'],
+            '南洋独家资料': ['南洋', '独家', '独家资料', '南洋资料', '学辅资料'],
+            '电路': ['电路分析', '电路理论', '基尔霍夫'],
+            '电路实验': ['电路实验课'],
+            '模拟电子技术': ['模电', '模拟电路', '运放', '放大器'],
+            '数电': ['数字电子技术', '数字电路', '逻辑电路', 'FPGA'],
+            '电磁场': ['电磁场理论', '电磁波', '麦克斯韦'],
+            '信号与系统': ['信号', '系统', '傅里叶', '拉普拉斯', '卷积'],
+            '模电数电实验': ['模电实验', '数电实验', '电子实验'],
+            '电磁场和信号与系统实验': ['电磁实验', '信号实验', '电磁场实验','信号与系统实验'],
+          };
+
+          // 从 _sidebar.md 动态解析课程列表
+          function parseSidebarForCourses(mdText) {
+            var lines = mdText.split('\n');
+            var courses = [];
+            var catStack = [];
+
+            for (var i = 0; i < lines.length; i++) {
+              var line = lines[i];
+
+              // 解析分类标题: - **分类名**
+              var boldMatch = line.match(/^\s*\-\s+\*\*(.+?)\*\*\s*$/);
+              if (boldMatch) {
+                var catName = boldMatch[1].replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]|[\u2600-\u27FF]|[\u2300-\u23FF]|[\u2B00-\u2BFF]|\uFE0F/g, '').trim();
+                if (!catName) continue;
+                var indent = (line.match(/^(\s*)/) || [''])[0].length;
+                var level = Math.floor(indent / 4);
+                catStack.length = level;
+                catStack.push(catName);
+                continue;
+              }
+
+              // 解析课程链接: - [🎖️ 课程名](../课程路径/)
+              var linkMatch = line.match(/^\s*\-\s+\[(.+?)\]\((.+?)\)/);
+              if (!linkMatch) continue;
+
+              var fullText = linkMatch[1];
+              var path = linkMatch[2];
+
+              // 过滤掉非课程链接（首页、教程、外部链接等）
+              if (path === '/' || path === 'admin/' || /\.md$/.test(path) || /^https?:\/\//.test(path)) continue;
+              // 跳过占位符
+              if (fullText.indexOf('待补充') !== -1) continue;
+
+              // 提取图标（首个 emoji）和名称
+              var iconMatch = fullText.match(/^([\uD800-\uDBFF][\uDC00-\uDFFF]|[\u2600-\u27FF]|[\u2300-\u23FF]|[\u2B00-\u2BFF])(\uFE0F)?\s*/);
+              var icon = iconMatch ? (iconMatch[1] + (iconMatch[2] || '')) : '📚';
+              var name = iconMatch ? fullText.slice(iconMatch[0].length).trim() : fullText.trim();
+
+              var category = catStack.join(' / ');
+              var alias = COURSE_ALIAS_MAP[name] || [];
+
+              courses.push({ name: name, alias: alias, category: category, path: path, icon: icon });
+            }
+            return courses;
+          }
+
+          // 全局课程索引（初始化时从 _sidebar.md 加载）
+          var COURSE_INDEX = [];
+          var COURSE_INDEX_READY = false;
+
+          function loadCourseIndex(callback) {
+            if (COURSE_INDEX_READY && COURSE_INDEX.length > 0) { callback(); return; }
+            // 尝试从 sessionStorage 读取缓存
+            try {
+              var cached = sessionStorage.getItem('xjtu_course_index');
+              if (cached) {
+                COURSE_INDEX = JSON.parse(cached);
+                COURSE_INDEX_READY = true;
+                callback();
+                return;
+              }
+            } catch (e) { /* ignore */ }
+
+            // 从当前 origin 获取 _sidebar.md
+            var basePath = (window.$docsify && window.$docsify.basePath) || '/';
+            var sidebarUrl = basePath.replace(/\/$/, '') + '/_sidebar.md';
+            // 处理 GitHub Pages 路径前缀
+            if (sidebarUrl === '/_sidebar.md' && window.location.hostname.includes('github.io')) {
+              sidebarUrl = '/XJTU_EE-study-material/_sidebar.md';
+            }
+
+            fetch(sidebarUrl)
+              .then(function (res) { return res.text(); })
+              .then(function (md) {
+                COURSE_INDEX = parseSidebarForCourses(md);
+                COURSE_INDEX_READY = true;
+                try { sessionStorage.setItem('xjtu_course_index', JSON.stringify(COURSE_INDEX)); } catch (e) { /* ignore */ }
+                callback();
+              })
+              .catch(function () {
+                // 降级：使用空索引，搜索将无结果
+                COURSE_INDEX_READY = true;
+                callback();
+              });
+          }
 
           // 搜索匹配函数：支持拼音首字母、汉字、别名模糊匹配
           function matchCourse(query, course) {
@@ -679,6 +760,16 @@
             var resultsPanel = document.getElementById('customSearchResults');
             if (!searchInput || !resultsPanel) return;
 
+            // 等待课程索引从 _sidebar.md 加载完成后再初始化搜索
+            loadCourseIndex(function () {
+              // 如果索引仍为空（fetch 失败），显示提示
+              if (COURSE_INDEX.length === 0) {
+                searchInput.placeholder = '🔍 搜索课程（索引加载中...）';
+              }
+              initSearchUI();
+            });
+
+            function initSearchUI() {
             var activeIndex = -1;
             var currentResults = [];
 
@@ -784,7 +875,8 @@
                 setTimeout(function () { resultsPanel.classList.remove('show'); }, 200);
               }
             });
-          }
+          } // end initSearchUI
+          } // end initCustomSearch
 
           // 侧边栏折叠展开
           function setupCollapsibleSidebar() {
