@@ -11,10 +11,10 @@
     body { background:var(--paper)!important; color:var(--ink); font-family:"Noto Sans SC","Microsoft YaHei",system-ui,sans-serif!important; }
     .cms-brand { position:fixed; top:12px; left:20px; z-index:1001; display:flex; align-items:center; gap:9px; color:#fff; font-size:14px; font-weight:800; pointer-events:none; }
     .cms-brand-mark { display:grid; place-items:center; width:27px; height:27px; border:1px solid rgba(255,255,255,.35); background:rgba(255,255,255,.12); color:#ffe0a3; font-size:11px; }
-    .custom-home-link { position:fixed; z-index:1002; right:76px; top:13px; padding:7px 10px; color:#d9eee8; text-decoration:none; border:1px solid rgba(255,255,255,.25); border-radius:4px; font-size:13px; font-weight:700; }
-    .custom-home-link:hover { background:rgba(255,255,255,.12); color:#fff; }
-    .dark-toggle { position:fixed; z-index:1002; top:13px; right:22px; display:grid; place-items:center; width:34px; height:34px; padding:0; border:1px solid rgba(255,255,255,.25); border-radius:4px; background:transparent; color:#fff; cursor:pointer; font-size:16px; }
-    .dark-toggle:hover { background:rgba(255,255,255,.12); }
+    .custom-home-link { position:fixed; z-index:1002; right:22px; bottom:68px; padding:8px 11px; color:var(--brand-deep); text-decoration:none; border:1px solid var(--line); border-radius:4px; background:var(--panel); box-shadow:0 5px 16px rgba(19,55,47,.1); font-size:13px; font-weight:800; }
+    .custom-home-link:hover { background:#e6f2ee; color:var(--brand-deep); }
+    .dark-toggle { position:fixed; z-index:1002; right:22px; bottom:22px; display:grid; place-items:center; width:36px; height:36px; padding:0; border:1px solid var(--line); border-radius:4px; background:var(--panel); color:var(--brand); box-shadow:0 5px 16px rgba(19,55,47,.1); cursor:pointer; font-size:16px; }
+    .dark-toggle:hover { background:#e6f2ee; }
     [class*="AppHeader"] { min-height:56px!important; background:var(--brand-deep)!important; box-shadow:none!important; }
     [class*="AppHeader"] a, [class*="AppHeader"] button { color:#e3f1ed!important; }
     [class*="FieldLabel"] { color:var(--ink)!important; font-size:14px!important; font-weight:800!important; }
@@ -33,9 +33,11 @@
     [class*="AuthForm"] input { text-align:center!important; }
     [class*="LoginButton"], [class*="GitHubButton"] { margin:0 auto!important; border-radius:4px!important; background:var(--brand)!important; box-shadow:none!important; font-weight:800!important; }
     .custom-signup-link { display:block; margin-top:15px; color:var(--brand)!important; font-size:13px; font-weight:700; text-decoration:none; }.custom-signup-link:hover { text-decoration:underline; }
+    .cms-course-card { min-height:142px!important; height:142px!important; max-height:142px!important; overflow:hidden!important; }
+    .cms-course-grid { grid-auto-rows:142px!important; }
     html.dark { --ink:#e3eee9; --muted:#a7bbb4; --line:#355149; --paper:#14211e; --panel:#1b2b27; --brand:#71c3b1; --brand-deep:#0d4038; }
     .dark-mode [class*="AppHeader"] { background:#092f2a!important; }.dark-mode [class*="AuthForm"] { background:var(--panel)!important; color:var(--ink)!important; }.dark-mode input,.dark-mode textarea,.dark-mode select,.dark-mode [contenteditable="true"] { background:#152722!important; color:var(--ink)!important; border-color:var(--line)!important; }.dark-mode [class*="Toolbar"] { background:#1c302a!important; }.dark-mode [class*="Upload"] { background:#172a25!important; }.dark-mode [class*="AuthenticationPage"] { background:var(--paper)!important; color:var(--ink)!important; }
-    @media (max-width:700px) { .cms-brand { left:56px; }.cms-brand span:last-child { display:none; }.custom-home-link { right:55px; font-size:0; border:0; }.custom-home-link::after { content:"首页"; font-size:13px; }.dark-toggle { right:14px; } [class*="AuthForm"] { padding:30px 22px!important; } }
+    @media (max-width:700px) { .cms-brand { left:56px; }.cms-brand span:last-child { display:none; }.custom-home-link { right:14px; bottom:62px; }.dark-toggle { right:14px; bottom:14px; } [class*="AuthForm"] { padding:30px 22px!important; } }
   </style>
 </head>
 <body>
@@ -70,8 +72,50 @@
     (function() {
       const brand = document.createElement('div');
       brand.className = 'cms-brand';
-      brand.innerHTML = '<span class="cms-brand-mark">EE</span><span>南洋学辅 <small>/ 内容管理</small></span>';
+      brand.innerHTML = '<span class="cms-brand-mark">EE</span><span>南洋学辅</span>';
       document.body.appendChild(brand);
+    })();
+
+    // Decap's default course grid uses editorial-style tall tiles. Compact only
+    // the course index so contributors can scan and open a course quickly.
+    (function() {
+      const courseNames = new Set([
+        '习思想', '军理（国防教育）', '史纲', '思修', '马原', '毛概', '高数&CMC',
+        '线代', '概率论', '复变', '数学物理方程', '大学物理', '大物实验', '大学化学',
+        '大化实验', '工程制图', '大计基', '电路', '电路实验', '电磁场',
+        '电磁场和信号与系统实验', '模拟电子技术', '数电', '模电数电实验',
+        '信号与系统', '南洋独家资料'
+      ]);
+
+      function compactCourseGrid() {
+        if (!location.hash.includes('/collections/courses')) return;
+        document.querySelectorAll('*').forEach(function(node) {
+          if (courseNames.has(node.textContent.trim())) {
+            let card = node;
+            for (let level = 0; level < 5 && card.parentElement; level += 1) {
+              const rect = card.getBoundingClientRect();
+              if (rect.width > 220 && rect.height > 180) break;
+              card = card.parentElement;
+            }
+            const rect = card.getBoundingClientRect();
+            if (rect.width > 220 && rect.height > 180) {
+              card.classList.add('cms-course-card');
+              card.style.setProperty('height', '142px', 'important');
+              card.style.setProperty('min-height', '142px', 'important');
+              const grid = card.parentElement;
+              if (grid) {
+                grid.classList.add('cms-course-grid');
+                grid.style.setProperty('grid-auto-rows', '142px', 'important');
+              }
+            }
+          }
+        });
+      }
+
+      const gridObserver = new MutationObserver(compactCourseGrid);
+      gridObserver.observe(document.body, { childList: true, subtree: true });
+      window.addEventListener('hashchange', function() { setTimeout(compactCourseGrid, 120); });
+      setTimeout(compactCourseGrid, 300);
     })();
 
     // ===== 在登录按钮旁注入"注册"链接 =====
