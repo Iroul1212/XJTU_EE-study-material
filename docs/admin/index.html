@@ -6,25 +6,25 @@
   <title>内容管理 - XJTU 南洋学辅学习资料站</title>
   <link href="https://unpkg.com/decap-cms@3.6.1/dist/decap-cms.css" rel="stylesheet" />
   <style>
-    :root { --ink:#16302d; --muted:#667773; --line:#dce7e3; --paper:#f5f8f6; --panel:#fff; --brand:#0d6b61; --brand-deep:#084940; --warm:#ef9b49; }
+    :root { --ink:#102a43; --muted:#627d98; --line:#d9e2ec; --paper:#f5f8fc; --panel:#fff; --brand:#1677c8; --brand-deep:#0b3558; --warm:#4b9fe1; }
     * { box-sizing:border-box; }
     body { background:var(--paper)!important; color:var(--ink); font-family:"Noto Sans SC","Microsoft YaHei",system-ui,sans-serif!important; }
     .cms-brand { position:fixed; top:12px; left:20px; z-index:1001; display:flex; align-items:center; gap:9px; color:#fff; font-size:14px; font-weight:800; pointer-events:none; }
-    .cms-brand-mark { display:grid; place-items:center; width:27px; height:27px; border:1px solid rgba(255,255,255,.35); background:rgba(255,255,255,.12); color:#ffe0a3; font-size:11px; }
+    .cms-brand-mark { display:grid; place-items:center; width:27px; height:27px; border:1px solid rgba(255,255,255,.35); background:rgba(255,255,255,.12); color:#a9d5ff; font-size:11px; }
     .custom-home-link { position:fixed; z-index:1002; right:22px; bottom:68px; padding:8px 11px; color:var(--brand-deep); text-decoration:none; border:1px solid var(--line); border-radius:4px; background:var(--panel); box-shadow:0 5px 16px rgba(19,55,47,.1); font-size:13px; font-weight:800; }
-    .custom-home-link:hover { background:#e6f2ee; color:var(--brand-deep); }
+    .custom-home-link:hover { background:#e6f2fb; color:var(--brand-deep); }
     .dark-toggle { position:fixed; z-index:1002; right:22px; bottom:22px; display:grid; place-items:center; width:36px; height:36px; padding:0; border:1px solid var(--line); border-radius:4px; background:var(--panel); color:var(--brand); box-shadow:0 5px 16px rgba(19,55,47,.1); cursor:pointer; font-size:16px; }
-    .dark-toggle:hover { background:#e6f2ee; }
+    .dark-toggle:hover { background:#e6f2fb; }
     [class*="AppHeader"] { min-height:56px!important; background:var(--brand-deep)!important; box-shadow:none!important; }
     [class*="AppHeader"] a, [class*="AppHeader"] button { color:#e3f1ed!important; }
     [class*="FieldLabel"] { color:var(--ink)!important; font-size:14px!important; font-weight:800!important; }
     [class*="FieldHint"] { color:var(--muted)!important; font-size:12px!important; }
-    input, textarea, select, [contenteditable="true"] { border-color:#c9dad5!important; border-radius:4px!important; box-shadow:none!important; color:var(--ink)!important; }
-    input:focus, textarea:focus, select:focus, [contenteditable="true"]:focus { border-color:var(--brand)!important; box-shadow:0 0 0 3px rgba(13,107,97,.12)!important; outline:none!important; }
+    input, textarea, select, [contenteditable="true"] { border-color:#c6d7e7!important; border-radius:4px!important; box-shadow:none!important; color:var(--ink)!important; }
+    input:focus, textarea:focus, select:focus, [contenteditable="true"]:focus { border-color:var(--brand)!important; box-shadow:0 0 0 3px rgba(22,119,200,.12)!important; outline:none!important; }
     [class*="Toolbar"] { border-color:var(--line)!important; background:#f9fbfa!important; }
-    [class*="Toolbar"] button:hover { background:#e6f2ee!important; color:var(--brand-deep)!important; }
-    [class*="Upload"] { border:1px dashed #9ebeb5!important; border-radius:5px!important; background:#f7fbf9!important; }
-    [class*="Upload"]:hover { border-color:var(--brand)!important; background:#edf7f3!important; }
+    [class*="Toolbar"] button:hover { background:#e6f2fb!important; color:var(--brand-deep)!important; }
+    [class*="Upload"] { border:1px dashed #91b8dc!important; border-radius:5px!important; background:#f5f9fd!important; }
+    [class*="Upload"]:hover { border-color:var(--brand)!important; background:#edf6fd!important; }
     [class*="BackCollection"] button, [class*="AddButton"] button, [class*="PublishButton"] button, [class*="SaveButton"] button { border-radius:4px!important; background:var(--brand)!important; color:#fff!important; box-shadow:none!important; font-weight:800!important; }
     [class*="BackCollection"] button:hover, [class*="AddButton"] button:hover, [class*="PublishButton"] button:hover, [class*="SaveButton"] button:hover { background:var(--brand-deep)!important; }
     [class*="DeleteButton"] button { border-radius:4px!important; }
@@ -33,18 +33,18 @@
     [class*="AuthForm"] input { text-align:center!important; }
     [class*="LoginButton"], [class*="GitHubButton"] { margin:0 auto!important; border-radius:4px!important; background:var(--brand)!important; box-shadow:none!important; font-weight:800!important; }
     .custom-signup-link { display:block; margin-top:15px; color:var(--brand)!important; font-size:13px; font-weight:700; text-decoration:none; }.custom-signup-link:hover { text-decoration:underline; }
-    body.dark-mode { --ink:#e3eee9; --muted:#a7bbb4; --line:#355149; --paper:#14211e; --panel:#1b2b27; --brand:#71c3b1; --brand-deep:#0d4038; background:#14211e!important; }
-    .dark-mode [class*="AppHeader"] { background:#092f2a!important; }
-    .dark-mode [class*="AuthenticationPage"],.dark-mode [class*="Editor"],.dark-mode [class*="CollectionMain"],.dark-mode [class*="PreviewPaneContainer"] { background:#14211e!important; color:var(--ink)!important; }
-    .dark-mode [class*="AuthForm"],.dark-mode [class*="Card"],.dark-mode [class*="Collection"],.dark-mode [class*="EntryListing"] { background:#1b2b27!important; color:var(--ink)!important; border-color:var(--line)!important; }
+    body.dark-mode { --ink:#dcecff; --muted:#9db7d2; --line:#294b6b; --paper:#0d1b2a; --panel:#13263a; --brand:#75b8f0; --brand-deep:#0b2942; background:#0d1b2a!important; }
+    .dark-mode [class*="AppHeader"] { background:#0b2942!important; }
+    .dark-mode [class*="AuthenticationPage"],.dark-mode [class*="Editor"],.dark-mode [class*="CollectionMain"],.dark-mode [class*="PreviewPaneContainer"] { background:#0d1b2a!important; color:var(--ink)!important; }
+    .dark-mode [class*="AuthForm"],.dark-mode [class*="Card"],.dark-mode [class*="Collection"],.dark-mode [class*="EntryListing"] { background:#13263a!important; color:var(--ink)!important; border-color:var(--line)!important; }
     .dark-mode [class*="Card"] *, .dark-mode [class*="Collection"] *, .dark-mode [class*="EntryListing"] *, .dark-mode [class*="Card"] *::before, .dark-mode [class*="Card"] *::after { background-color:transparent!important; color:var(--ink)!important; border-color:var(--line)!important; }
-    .dark-mode [class*="SidebarContainer"],.dark-mode [class*="SidebarContainer"] * { background-color:#10201c!important; color:#c6d8d2!important; border-color:#355149!important; }
-    .dark-mode [class*="SidebarContainer"] [class*="Active"],.dark-mode [class*="SidebarContainer"] [aria-current="page"] { background-color:#1d3b34!important; color:#8dd3c4!important; }
-    .dark-mode input,.dark-mode textarea,.dark-mode select,.dark-mode [contenteditable="true"] { background:#152722!important; color:var(--ink)!important; border-color:var(--line)!important; }
-    .dark-mode [class*="Toolbar"] { background:#1c302a!important; }.dark-mode [class*="Upload"] { background:#172a25!important; }
-    .dark-mode [class*="BackCollection"] button,.dark-mode [class*="AddButton"] button,.dark-mode [class*="PublishButton"] button,.dark-mode [class*="SaveButton"] button { background:var(--brand)!important; color:#092f2a!important; }
-    .dark-mode [class*="Card"] { background:#20352f!important; border:1px solid #52776b!important; box-shadow:inset 0 0 0 1px rgba(160,211,195,.08),0 3px 10px rgba(0,0,0,.16)!important; }
-    .dark-mode [class*="Card"]:hover { background:#26423a!important; border-color:#82b8a8!important; box-shadow:inset 0 0 0 1px rgba(160,211,195,.2),0 7px 18px rgba(0,0,0,.2)!important; }
+    .dark-mode [class*="SidebarContainer"],.dark-mode [class*="SidebarContainer"] * { background-color:#0a1725!important; color:#b8cfe6!important; border-color:#294b6b!important; }
+    .dark-mode [class*="SidebarContainer"] [class*="Active"],.dark-mode [class*="SidebarContainer"] [aria-current="page"] { background-color:#163957!important; color:#a7d5ff!important; }
+    .dark-mode input,.dark-mode textarea,.dark-mode select,.dark-mode [contenteditable="true"] { background:#10243a!important; color:var(--ink)!important; border-color:var(--line)!important; }
+    .dark-mode [class*="Toolbar"] { background:#122b45!important; }.dark-mode [class*="Upload"] { background:#10243a!important; }
+    .dark-mode [class*="BackCollection"] button,.dark-mode [class*="AddButton"] button,.dark-mode [class*="PublishButton"] button,.dark-mode [class*="SaveButton"] button { background:var(--brand)!important; color:#0b2942!important; }
+    .dark-mode [class*="Card"] { background:#17314a!important; border:1px solid #416b91!important; box-shadow:inset 0 0 0 1px rgba(157,205,248,.09),0 3px 10px rgba(0,0,0,.18)!important; }
+    .dark-mode [class*="Card"]:hover { background:#1c3d5d!important; border-color:#76afe1!important; box-shadow:inset 0 0 0 1px rgba(157,205,248,.2),0 7px 18px rgba(0,0,0,.22)!important; }
     @media (max-width:700px) { .cms-brand { left:56px; }.cms-brand span:last-child { display:none; }.custom-home-link { right:14px; bottom:62px; }.dark-toggle { right:14px; bottom:14px; } [class*="AuthForm"] { padding:30px 22px!important; } }
   </style>
 </head>
