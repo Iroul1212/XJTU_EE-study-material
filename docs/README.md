@@ -1,83 +1,41 @@
-# ⚡欢迎来到 XJTU 南洋学辅 学习资料共享站
+<section class="home-hero">
+  <div>
+    <h1>XJTU 南洋学辅<br>学习资料站</h1>
+    <p>面向西安交通大学电气工程、电子科学与技术、微电子科学与工程同学的免费资料共享库。课程资料由同学们共同整理，按课程直接浏览和下载。</p>
+    <div class="home-actions">
+      <a href="#/../电路/">浏览电气专业资料</a>
+      <a href="#/贡献指南">贡献一份资料</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat"><b>26+</b><span>已收录课程</span></div>
+    <div class="hero-stat"><b>3</b><span>服务专业方向</span></div>
+    <div class="hero-stat"><b>FREE</b><span>公开学习使用</span></div>
+    <div class="hero-stat"><b>OPEN</b><span>同学共同维护</span></div>
+  </div>
+</section>
 
-> 📖 **本站内容完全开源、免费，面向西安交通大学电气工程、电子科学与技术、微电子科学与工程三个专业的同学。**
-> 💡 *希望通过这份资料，能让你的学习之路少走一些弯路，收获更多启发。*
+## 课程资料
 
----
+<div class="course-grid">
+  <a class="course-card" href="#/../高数%26CMC/"><span class="course-type">公共课程 / 数学</span><b>高数 &amp; CMC</b><span>高等数学与竞赛数学资料</span><span class="course-arrow">浏览资料 -></span></a>
+  <a class="course-card" href="#/../线代/"><span class="course-type">公共课程 / 数学</span><b>线性代数</b><span>矩阵、行列式与线性空间</span><span class="course-arrow">浏览资料 -></span></a>
+  <a class="course-card" href="#/../概率论/"><span class="course-type">公共课程 / 数学</span><b>概率论</b><span>概率统计与习题资料</span><span class="course-arrow">浏览资料 -></span></a>
+  <a class="course-card" href="#/../大学物理/"><span class="course-type">公共课程 / 物理</span><b>大学物理</b><span>课程讲义、题目与复习资料</span><span class="course-arrow">浏览资料 -></span></a>
+  <a class="course-card" href="#/../电路/"><span class="course-type">电气专业 / 核心课</span><b>电路</b><span>分析方法、习题与考试资料</span><span class="course-arrow">浏览资料 -></span></a>
+  <a class="course-card" href="#/../模拟电子技术/"><span class="course-type">电气专业 / 核心课</span><b>模拟电子技术</b><span>模电课程资料与复习材料</span><span class="course-arrow">浏览资料 -></span></a>
+  <a class="course-card" href="#/../数电/"><span class="course-type">电气专业 / 核心课</span><b>数电</b><span>数字电路与实验资料</span><span class="course-arrow">浏览资料 -></span></a>
+  <a class="course-card" href="#/../信号与系统/"><span class="course-type">电气专业 / 核心课</span><b>信号与系统</b><span>系统分析、变换与习题资料</span><span class="course-arrow">浏览资料 -></span></a>
+  <a class="course-card" href="#/../电磁场/"><span class="course-type">电气专业 / 核心课</span><b>电磁场</b><span>电磁场理论与课程资料</span><span class="course-arrow">浏览资料 -></span></a>
+</div>
 
-## 🗺️ 快速开始
+其余课程可通过左侧分类导航，或按 `/` 键直接搜索课程名称。
 
-无论你是哪个专业的同学，都可以通过以下方式快速找到需要的资料：
+## 一起完善资料库
 
-*   **🔍 搜索直达**：点击左侧搜索框，输入课程名（如 `高数`、`电路`），最快直达目标。
-*   **📂 分类浏览**：通过左侧导航栏，按「公共课程」和「专业课程」分类定位。
+<div class="notice">
+  <div><h3>每一份整理，都会帮到下一位同学。</h3><p>笔记、真题、复习提纲和实验资料都很欢迎。请确保资料仅用于学习交流，并尊重原作者权益。</p></div>
+  <a href="#/贡献指南">查看贡献方式 -></a>
+</div>
 
----
-
-## 📚 资料概览
-
-本站目前收录了**近 30 门**课程的资料，分为公共课程与各专业课程两大类。
-
-### 📚 公共课程
-
-高数、思修类（思修/史纲/毛概/马原/习思想/军理）、线代、大学物理、工程制图、大物实验、大学化学、大化实验等课程面向所有专业开放。
-
-| 子分类 | 课程 |
-| :--- | :--- |
-| **思政类** | 思修、史纲、毛概、马原、习思想、军理（国防教育） |
-| **数学类** | 高数&CMC、线代、概率论、复变、数学物理方程 |
-| **物理与化学** | 大学物理、大物实验、大学化学、大化实验 |
-| **其他公共课** | 工程制图、大计基 |
-
-### ⚡ 电气专业
-
-| 子分类 | 课程 |
-| :--- | :--- |
-| **专业核心课** | 电路、电路实验、模拟电子技术、数电、电磁场、信号与系统 |
-| **实验与实践** | 模电数电实验、电磁场和信号与系统实验 |
-
-### 📡 电子专业
-
-> *资料收集中，欢迎贡献...*
-
-### 💻 微电子专业
-
-> *资料收集中，欢迎贡献...*
-
----
-
-## 🙋‍♀️ 如何贡献？
-
-这个资料库因为大家的无私共享而不断丰富。如果你是电气、电子或微电子专业的同学，手头有整理好的笔记、真题、复习提纲，非常欢迎你参与进来！
-
-### 📤 上传资料（多种方式，任选其一）
-
-| 方式 | 难度 | 说明 |
-|:---|:---|:---|
-| 🖥️ [**网页后台直传**](admin/) | ⭐ 最方便 | 登录 CMS 后台，拖拽上传文件，自动同步到 GitHub |
-| 🚀 [**GitHub 直传**](https://github.com/Iroul1212/XJTU_EE-study-material/upload/main) | ⭐ 简单 | 浏览器拖拽上传，自动发起 Pull Request |
-| 📝 [**图文教程**](贡献指南.md) | ⭐ 零基础 | 手把手 5 分钟学会，不需要会 Git |
-| 💬 [**提 Issue**](https://github.com/Iroul1212/XJTU_EE-study-material/issues/new/choose) | ⭐ 无需注册 | 不会 GitHub？直接传附件，维护者帮你入库 |
-
-每多一份资料，可能就有一位同学在复习时多一分把握。
-
----
-
-## 📢 致谢与声明
-
-### 🙏 致谢
-
-本仓库的建立和丰富，得到了许多个人和组织的无私帮助，在此特别感谢：
-*   受到 [XJTU-Share](https://github.com/cantjie/XJTU-Share) 和 [XJTU_Electrical_Engineering_and_Automation](https://github.com/HilbertRonAnju/XJTU_Electrical_Engineering_and_Automation) 等优秀项目的启发。
-*   感谢所有参与资料分享、整理与贡献的同学。
-*   感谢学粉群、彭小帮、南知辅（南卷会）、治学团、钱学辅等学辅组织的辛勤付出。
-
-### ⚠️ 免责声明
-
-*   本站所有资料均由同学自愿贡献，**仅供学习参考**，不得用于任何商业用途。
-*   资料版权归原作者所有，如果任何资料侵犯了你的权益，请及时联系我们删除。
-*   维护者不对资料的准确性和时效性做完全保证，请结合课堂学习使用。
-
----
-
-**[👉 在 GitHub 上查看本项目](https://github.com/Iroul1212/XJTU_EE-study-material)**
+资料仅供学习参考，不得用于商业用途。发现版权或内容问题，请通过 [GitHub Issues](https://github.com/Iroul1212/XJTU_EE-study-material/issues) 联系维护者。
