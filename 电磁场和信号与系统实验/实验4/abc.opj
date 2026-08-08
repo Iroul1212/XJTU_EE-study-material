@@ -1,0 +1,91 @@
+(ExpressProject "abc"
+  (ProjectVersion "19981106")
+  (ProjectType "Analog or A/D Mixed Mode")
+  (Folder "Design Resources"
+    (Folder "Library"
+      (File "d:\cadence\spb_17.2\tools\capture\library\pspice\analog.olb"
+        (Type "Schematic Library"))
+      (File "d:\cadence\spb_17.2\tools\capture\library\pspice\source.olb"
+        (Type "Schematic Library"))
+      (File "d:\cadence\spb_17.2\tools\capture\library\pspice\special.olb"
+        (Type "Schematic Library")))
+    (NoModify)
+    (File ".\abc.dsn"
+      (Type "Schematic Design"))
+    (BuildFileAddedOrDeleted "x")
+    (CompileFileAddedOrDeleted "x")
+    (PSPICE_Regenerate_Netlist_Flag "FALSE"))
+  (Folder "Outputs"
+    (File ".\abc-pspicefiles\schematic1\schematic1.net"
+      (Type "Report")))
+  (Folder "PSpice Resources"
+    (Folder "Simulation Profiles"
+      (ActiveProfile ".\abc-pspicefiles\schematic1\simulation1.sim")
+      (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
+         ".\abc-pspicefiles\schematic1\simulation1.sim"
+        (DisplayName "SCHEMATIC1-Simulation1")
+        (Type "PSpice Profile")))
+    (Folder "Model Libraries"
+      (Sort User))
+    (Folder "Stimulus Files"
+      (Sort User))
+    (Folder "Include Files"
+      (Sort User)))
+  (DefaultLibraryBrowseDirectory "library\PSpice")
+  (PartMRUSelector
+    (R
+      (FullPartName "R.Normal")
+      (LibraryName
+         "D:\CADENCE\SPB_17.2\TOOLS\CAPTURE\LIBRARY\PSPICE\ANALOG.OLB")
+      (DeviceIndex "0"))
+    (0
+      (LibraryName "D:\CADENCE\SPB_17.2\TOOLS\CAPTURE\LIBRARY\CAPSYM.OLB")
+      (DeviceIndex "0"))
+    (PARAM
+      (FullPartName "PARAM.Normal")
+      (LibraryName
+         "D:\CADENCE\SPB_17.2\TOOLS\CAPTURE\LIBRARY\PSPICE\SPECIAL.OLB")
+      (DeviceIndex "0"))
+    (T
+      (FullPartName "T.Normal")
+      (LibraryName
+         "D:\CADENCE\SPB_17.2\TOOLS\CAPTURE\LIBRARY\PSPICE\ANALOG.OLB")
+      (DeviceIndex "0"))
+    (VAC
+      (FullPartName "VAC.Normal")
+      (LibraryName
+         "D:\CADENCE\SPB_17.2\TOOLS\CAPTURE\LIBRARY\PSPICE\SOURCE.OLB")
+      (DeviceIndex "0")))
+  (MPSSessionName "lizhen")
+  (GlobalState
+    (FileView
+      (Path "Design Resources")
+      (Path "Design Resources" "D:\EEFSS\Experiment4\abc.dsn")
+      (Path "Design Resources" "D:\EEFSS\Experiment4\abc.dsn" "SCHEMATIC1")
+      (Path "Design Resources" "Library")
+      (Path "Outputs")
+      (Path "PSpice Resources")
+      (Path "PSpice Resources" "Simulation Profiles")
+      (Select "Design Resources"))
+    (HierarchyView)
+    (Doc
+      (Type "COrCapturePMDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -8 -31 0 200 0 399"))
+      (Tab 0))
+    (Doc
+      (Type "TextFile")
+      (Frame
+        (Placement "44 0 1 -1 -1 -8 -31 52 1475 52 490"))
+      (Path "D:\EEFSS\Experiment4\abc-pspicefiles\schematic1\schematic1.net")
+      (Scroll "0"))
+    (Doc
+      (Type "COrSchematicDoc")
+      (Frame
+        (Placement "44 2 3 -1 -1 -8 -31 78 1501 78 516")
+        (Scroll "172 324")
+        (Zoom "200")
+        (Occurrence "/"))
+      (Path "D:\EEFSS\EXPERIMENT4\ABC.DSN")
+      (Schematic "SCHEMATIC1")
+      (Page "PAGE1"))))
