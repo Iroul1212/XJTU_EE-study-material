@@ -15,16 +15,8 @@
     .custom-home-link:hover { background:rgba(255,255,255,.12); color:#fff; }
     .dark-toggle { position:fixed; z-index:1002; top:13px; right:22px; display:grid; place-items:center; width:34px; height:34px; padding:0; border:1px solid rgba(255,255,255,.25); border-radius:4px; background:transparent; color:#fff; cursor:pointer; font-size:16px; }
     .dark-toggle:hover { background:rgba(255,255,255,.12); }
-    [class*="AppHeader"] { min-height:56px!important; padding-left:184px!important; background:var(--brand-deep)!important; box-shadow:none!important; }
+    [class*="AppHeader"] { min-height:56px!important; background:var(--brand-deep)!important; box-shadow:none!important; }
     [class*="AppHeader"] a, [class*="AppHeader"] button { color:#e3f1ed!important; }
-    [class*="SidebarContainer"] { background:#fbfcfb!important; border-right:1px solid var(--line)!important; }
-    [class*="SidebarContainer"] a { color:#526660!important; font-weight:600!important; }
-    [class*="SidebarContainer"] a:hover, [class*="SidebarContainer"] [class*="Active"] { color:var(--brand-deep)!important; background:#e6f2ee!important; }
-    [class*="Editor"], [class*="CollectionMain"], [class*="PreviewPaneContainer"] { background:var(--paper)!important; }
-    [class*="Editor"] > div, [class*="CollectionMain"] > div { border-radius:0!important; }
-    [class*="Card"], [class*="Collection"], [class*="EntryListing"], [class*="EditorControl"] { border-color:var(--line)!important; box-shadow:none!important; }
-    [class*="Card"], [class*="Collection"], [class*="EntryListing"] { border-radius:6px!important; background:var(--panel)!important; }
-    [class*="Card"]:hover { border-color:#8ebcaf!important; box-shadow:0 8px 20px rgba(20,61,52,.08)!important; }
     [class*="FieldLabel"] { color:var(--ink)!important; font-size:14px!important; font-weight:800!important; }
     [class*="FieldHint"] { color:var(--muted)!important; font-size:12px!important; }
     input, textarea, select, [contenteditable="true"] { border-color:#c9dad5!important; border-radius:4px!important; box-shadow:none!important; color:var(--ink)!important; }
@@ -42,8 +34,8 @@
     [class*="LoginButton"], [class*="GitHubButton"] { margin:0 auto!important; border-radius:4px!important; background:var(--brand)!important; box-shadow:none!important; font-weight:800!important; }
     .custom-signup-link { display:block; margin-top:15px; color:var(--brand)!important; font-size:13px; font-weight:700; text-decoration:none; }.custom-signup-link:hover { text-decoration:underline; }
     html.dark { --ink:#e3eee9; --muted:#a7bbb4; --line:#355149; --paper:#14211e; --panel:#1b2b27; --brand:#71c3b1; --brand-deep:#0d4038; }
-    .dark-mode [class*="SidebarContainer"] { background:#10201c!important; }.dark-mode [class*="AppHeader"] { background:#092f2a!important; }.dark-mode [class*="SidebarContainer"] a { color:#b7c9c3!important; }.dark-mode [class*="SidebarContainer"] a:hover { background:#1d3b34!important; color:#8dd3c4!important; }.dark-mode [class*="Card"],.dark-mode [class*="Collection"],.dark-mode [class*="EntryListing"],.dark-mode [class*="AuthForm"] { background:var(--panel)!important; color:var(--ink)!important; }.dark-mode input,.dark-mode textarea,.dark-mode select,.dark-mode [contenteditable="true"] { background:#152722!important; color:var(--ink)!important; border-color:var(--line)!important; }.dark-mode [class*="Toolbar"] { background:#1c302a!important; }.dark-mode [class*="Upload"] { background:#172a25!important; }.dark-mode [class*="Editor"],.dark-mode [class*="CollectionMain"],.dark-mode [class*="PreviewPaneContainer"],.dark-mode [class*="AuthenticationPage"] { background:var(--paper)!important; color:var(--ink)!important; }
-    @media (max-width:700px) { .cms-brand { left:56px; }.cms-brand span:last-child { display:none; }.custom-home-link { right:64px; font-size:0; border:0; }.custom-home-link::after { content:"首页"; font-size:13px; }.dark-toggle { right:14px; }.custom-home-link { right:55px; } [class*="AppHeader"] { padding-left:105px!important; } [class*="AuthForm"] { padding:30px 22px!important; } }
+    .dark-mode [class*="AppHeader"] { background:#092f2a!important; }.dark-mode [class*="AuthForm"] { background:var(--panel)!important; color:var(--ink)!important; }.dark-mode input,.dark-mode textarea,.dark-mode select,.dark-mode [contenteditable="true"] { background:#152722!important; color:var(--ink)!important; border-color:var(--line)!important; }.dark-mode [class*="Toolbar"] { background:#1c302a!important; }.dark-mode [class*="Upload"] { background:#172a25!important; }.dark-mode [class*="AuthenticationPage"] { background:var(--paper)!important; color:var(--ink)!important; }
+    @media (max-width:700px) { .cms-brand { left:56px; }.cms-brand span:last-child { display:none; }.custom-home-link { right:55px; font-size:0; border:0; }.custom-home-link::after { content:"首页"; font-size:13px; }.dark-toggle { right:14px; } [class*="AuthForm"] { padding:30px 22px!important; } }
   </style>
 </head>
 <body>
