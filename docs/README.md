@@ -15,6 +15,14 @@
   </div>
 </section>
 
+## 按专业浏览
+
+<div class="major-grid">
+  <a class="major-card" href="#/majors/electrical"><b>电气工程</b><span>专业核心课、实验与实践课程</span><small>查看课程 -></small></a>
+  <a class="major-card" href="#/majors/electronics"><b>电子科学与技术</b><span>进入电子专业课程资料列表</span><small>查看课程 -></small></a>
+  <a class="major-card" href="#/majors/microelectronics"><b>微电子科学与工程</b><span>进入微电子专业课程资料列表</span><small>查看课程 -></small></a>
+</div>
+
 ## 课程资料
 
 <div class="course-grid">
